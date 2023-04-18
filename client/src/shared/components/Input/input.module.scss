@@ -1,0 +1,10 @@
+.input {
+  height: 80px;
+  position: relative;
+
+  &__show-password {
+    position: absolute;
+    top: 7px;
+    right: 8px;
+  }
+}

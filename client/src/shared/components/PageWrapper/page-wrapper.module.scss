@@ -1,0 +1,67 @@
+@import url(../../scss/colors.scss);
+
+.pageWrapper {
+  min-height: 100vh;
+  background-image: url(../../../../public/img/background.jpg);
+  background-size: cover;
+
+  &__header {
+    height: 90px;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--header);
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 2;
+
+    &_right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+
+      p {
+        font-family: Rasa;
+        color: var(--header-text);
+        font-size: 20px;
+      }
+    }
+  }
+
+  &__footer {
+    background-color: var(--footer);
+    height: 30px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-right: 40px;
+
+    p {
+      opacity: 0.5;
+      color: white;
+      font-size: 10px;
+    }
+  }
+
+}
+
+.pageWrapper__gradientContainer {
+  min-height: 100vh;
+  background: linear-gradient(
+    225deg,
+    #000000 1.93%,
+    rgba(84, 55, 55, 0) 25.14%
+  );
+
+  .pageWrapper__container {
+    padding-top: 10px;
+    min-height: 100vh;
+    background: linear-gradient(
+      89.85deg,
+      #000000 -6.07%,
+      rgba(84, 55, 55, 0) 101.14%
+    );
+  }
+}
