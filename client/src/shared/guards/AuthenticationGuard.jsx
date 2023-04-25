@@ -15,6 +15,7 @@ const AuthenticationGuard = ({ children }) => {
   useEffect(() => {
     if (!LocalStorageService.accessToken) {
       navigate(APPLICATION_ROUTES.login);
+    } else {
       setCanActivate(true);
     }
   }, [navigate, dispatch]);

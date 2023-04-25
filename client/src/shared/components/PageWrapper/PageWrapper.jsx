@@ -28,17 +28,20 @@ const PageWrapper = ({ children }) => {
     <div className={classes.pageWrapper}>
       <header className={classes.pageWrapper__header}>
         <Logo
-          href={isUserAuthenticated ? APPLICATION_ROUTES.home : APPLICATION_ROUTES.login}
+          href={
+            isUserAuthenticated
+              ? APPLICATION_ROUTES.home
+              : APPLICATION_ROUTES.login
+          }
           src="/img/logo.svg"
           alt="Logo"
           width={70}
           height={70}
         />
-        {isUserAuthenticated && (
+        {isUserAuthenticated && me && (
           <div className={classes.pageWrapper__header_right}>
-            {me && (
-              <p>{`${me.surname} ${me.name} ${me.father_name} (${me.login})`}</p>
-            )}
+            <div className={classes.pageWrapper__avatar}>{me.login[0]}</div>
+            <p className={classes.pageWrapper__login}>{`${me.login}`}</p>
             <CustomButton
               onClick={handleLogOut}
               theme={buttonThemes.small}

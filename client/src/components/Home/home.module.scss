@@ -1,0 +1,43 @@
+@import url(../../shared/scss/colors.scss);
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 40px);
+  gap: 10px;
+
+  &__common-info,
+  &__buttons {
+    background-color: white;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+    border-radius: 20px;
+
+    &-title {
+      color: var(--primary-darker);
+      font-size: 50px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    &-name {
+      font-size: 30px;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__buttons {
+    gap: 20px;
+
+    &_edit,
+    &_download {
+      width: 50%;
+    }
+  }
+}
