@@ -11,15 +11,19 @@ const DateField = ({ placeholder, control, rules, error, name }) => {
       name={name}
       control={control}
       rules={rules}
-      render={({ field: { onChange, value } }) => (
+      render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ru}>
           <DatePicker
+            {...field}
+            inputRef={ref}
             label={placeholder}
-            renderInput={() => (
+            renderInput={(inputProps) => (
               <TextField
-                value={value || ""}
+                {...inputProps}
+                onBlur={onBlur}
+                name={name}
                 error={!!error}
-                onChange={onChange}
+                helperText={error?.message}
               />
             )}
           />

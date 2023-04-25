@@ -16,44 +16,60 @@ class LectorsController {
       password,
       surname,
       name,
-      fatherName,
-      faculty,
-      cathedra,
+      father_name,
+      facultyId,
+      cathedraId,
       position,
-      academicTitle,
-      academicDegree,
-      employmentDate,
+      academic_title,
+      academic_degree,
+      employment_date,
     } = req.body;
+
     const candidate = await Lectors.findOne({ where: { login } });
+
     if (candidate) {
       return next(
         ApiError.badRequest("Пользователь с таким логином уже существует")
       );
     }
     const hashPassword = await bcrypt.hash(password, 5);
-    const lector = await Lectors.create({ login, password: hashPassword });
+    const lector = await Lectors.create({
+      login,
+      password: hashPassword,
+      surname,
+      name,
+      father_name,
+      facultyId,
+      cathedraId,
+      position,
+      academic_title,
+      academic_degree,
+      employment_date,
+    });
+
+    console.log(lector.id);
     const plan = await IndividualPlans.create({ lectorId: lector.id });
-    const token = generateJwt(lector.id, lector.login);
+    const token = generateJwt(lector.id, login);
     return res.json({ token });
   }
 
   async login(req, res, next) {
     const { login, password } = req.body;
     const lector = await Lectors.findOne({ where: { login } });
-    if (!user) {
+    if (!lector) {
       return next(ApiError.internal("Пользователь не найден"));
     }
     let comparePassword = bcrypt.compareSync(password, lector.password);
     if (!comparePassword) {
       return next(ApiError.internal("Указан неверный пароль"));
     }
-    const token = generateJwt(lector.id, lector.email, lector.role);
+    const token = generateJwt(lector.id, login)
     return res.json({ token });
   }
 
-  async check(req, res, next) {
-    const token = generateJwt(req.lector.id, req.lector.login);
-    return res.json({ token });
+  async check(req, res) {
+    const lector = await Lectors.findOne({where: req.user.id});
+    return res.json(lector);
   }
 }
 

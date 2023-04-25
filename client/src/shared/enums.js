@@ -24,5 +24,18 @@ export const backEndStatusCodes = {
   notFound: 404,
   conflict: 409,
   validation: 422,
-  internalServerError: 500
+  internalServerError: 500,
+};
+
+export const notificationTypes = {
+  success: "success",
+  warning: "warning",
+  error: "error",
+};
+
+export const notificationActions = {
+  showSuccess: "showSuccess",
+  showWarning: "showWarning",
+  showError: "showError",
+  delete: "delete",
 };

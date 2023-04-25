@@ -1,40 +1,44 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
 
 import classes from "./page-wrapper.module.scss";
 import { APPLICATION_ROUTES } from "../../constants";
 import Logo from "../Logo/Logo";
-import data from "../../../data.json";
 import CustomButton from "../Button/Button";
 import { buttonThemes, colors } from "../../enums";
+import LocalStorageService from "../../services/LocalStorageService";
+import { userLoaded } from "../../../redux/Actions";
+import { getMe } from "../../../redux/Selectors";
 
 const PageWrapper = ({ children }) => {
-  const [isUserAuthenticated, setIsUserAuthenticated] = useState(true);
+  const isUserAuthenticated = !!LocalStorageService.accessToken;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogOut = () => {
     navigate(APPLICATION_ROUTES.login);
-    setIsUserAuthenticated(false);
+    dispatch(userLoaded(null));
+    LocalStorageService.clear();
   };
 
-  const handleLogIn = () => {
-    navigate(APPLICATION_ROUTES.login);
-    setIsUserAuthenticated(true);
-  };
+  const me = useSelector(getMe);
 
   return (
     <div className={classes.pageWrapper}>
       <header className={classes.pageWrapper__header}>
         <Logo
-          href={APPLICATION_ROUTES.home}
+          href={isUserAuthenticated ? APPLICATION_ROUTES.home : APPLICATION_ROUTES.login}
           src="/img/logo.svg"
           alt="Logo"
           width={70}
           height={70}
         />
-        {isUserAuthenticated ? (
+        {isUserAuthenticated && (
           <div className={classes.pageWrapper__header_right}>
-            <p>{`${data.surname} ${data.name} ${data.father_name}`}</p>
+            {me && (
+              <p>{`${me.surname} ${me.name} ${me.father_name} (${me.login})`}</p>
+            )}
             <CustomButton
               onClick={handleLogOut}
               theme={buttonThemes.small}
@@ -43,14 +47,6 @@ const PageWrapper = ({ children }) => {
               Выйти
             </CustomButton>
           </div>
-        ) : (
-          <CustomButton
-            onClick={handleLogIn}
-            theme={buttonThemes.small}
-            color={colors.primary}
-          >
-            Войти
-          </CustomButton>
         )}
       </header>
       <div className={classes.pageWrapper__gradientContainer}>

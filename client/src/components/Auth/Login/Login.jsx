@@ -11,6 +11,9 @@ import {
 } from "../ValidationRules";
 import { buttonThemes, colors } from "../../../shared/enums";
 import { APPLICATION_ROUTES } from "../../../shared/constants";
+import request from "../../../shared/api/request";
+import { LOGIN } from "../../../shared/api/requests";
+import LocalStorageService from "../../../shared/services/LocalStorageService";
 
 const Login = () => {
   const {
@@ -21,6 +24,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async (data) => {
+    const { token } = await request(LOGIN(data));
+
+    LocalStorageService.accessToken = token;
     navigate(APPLICATION_ROUTES.home);
   };
 

@@ -5,3 +5,5 @@ export const GET_CATHEDRAS = (facultyId) => ({
   url: `${ENDPOINTS.cathedras}?facultyId=${facultyId}`,
 });
 export const GET_FACULTIES = { method: "get", url: ENDPOINTS.faculties };
+export const REGISTER = data => ({method: 'post', url: ENDPOINTS.register, data});
+export const LOGIN = data => ({method: 'post', url: ENDPOINTS.login, data});
