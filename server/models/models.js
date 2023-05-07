@@ -3,8 +3,8 @@ const { DataTypes } = require("sequelize");
 
 const IndividualPlans = sequelize.define("individual_plans", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  year_start: { type: DataTypes.STRING },
-  year_end: { type: DataTypes.STRING },
+  year_start: { type: DataTypes.INTEGER },
+  year_end: { type: DataTypes.INTEGER },
   educational_works_hours: { type: DataTypes.DOUBLE },
   educational_and_methodical_works_hours: { type: DataTypes.DOUBLE },
   organizational_and_methodical_works_hours: { type: DataTypes.DOUBLE },

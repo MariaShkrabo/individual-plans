@@ -2,10 +2,38 @@ import Docxtemplater from "docxtemplater";
 import PizZip from "pizzip";
 import PizZipUtils from "pizzip/utils/index.js";
 import { saveAs } from "file-saver";
-import data from "../../data.json";
 import { SERVER_PORT } from "../constants";
+import { useCallback, useEffect, useState } from "react";
+import request from "../api/request";
+import { GET_INDIVIDUAL_PLAN_COMMON_DATA } from "../api/requests";
+import { useSelector } from "react-redux";
+import { getMe } from "../../redux/Selectors";
 
 export const useGenerateDocument = () => {
+  const me = useSelector(getMe);
+
+  const [planData, setPlanData] = useState();
+
+  const setEmptyFields = (obj) => {
+    for (let key in obj) {
+      if (!obj[key]) {
+        obj[key] = "";
+      }
+    }
+    return obj;
+  };
+  
+  const initIndividualPlanData = useCallback(async () => {
+    if (me) {
+      const planData = await request(GET_INDIVIDUAL_PLAN_COMMON_DATA(me.id));
+      setPlanData(setEmptyFields(planData));
+    }
+  }, [me]);
+
+  useEffect(() => {
+    initIndividualPlanData();
+  }, [initIndividualPlanData]);
+
   const loadFile = (url, callback) => {
     PizZipUtils.getBinaryContent(url, callback);
   };
@@ -22,7 +50,7 @@ export const useGenerateDocument = () => {
           paragraphLoop: true,
           linebreaks: true,
         });
-        doc.setData(data);
+        doc.setData(planData);
         try {
           doc.render();
         } catch (error) {
@@ -58,7 +86,7 @@ export const useGenerateDocument = () => {
         });
         saveAs(
           out,
-          `Индивидуальный план (${data.surname} ${data.name[0]}.${data.father_name[0]}.).docx`
+          `Индивидуальный план (${me.surname} ${me.name[0]}.${me.father_name[0]}.).docx`
         );
       }
     );

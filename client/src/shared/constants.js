@@ -14,7 +14,8 @@ export const ENDPOINTS = {
   cathedras: "/cathedras",
   login: "/lectors/login",
   register: "/lectors/registration",
-  auth: "/lectors/auth"
+  auth: "/lectors/auth",
+  individualPlanCommonInfo: "individual-plan/common-info",
 };
 
 export const LOCAL_STORAGE_KEYS = {
