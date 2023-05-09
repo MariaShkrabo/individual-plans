@@ -4,12 +4,17 @@ import { useGenerateDocument } from "../../shared/hooks/useGenerateDocument";
 import { useSelector } from "react-redux";
 import { getMe } from "../../redux/Selectors";
 import { buttonThemes } from "../../shared/enums";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { generateDocument } = useGenerateDocument();
   const me = useSelector(getMe);
+  let navigate = useNavigate();
 
-  const editDocument = () => {};
+  const editPlan = () => {
+    let path = `/edit-plan`;
+    navigate(path);
+  };
 
   return (
     <div className={classes["home"]}>
@@ -32,7 +37,7 @@ const Home = () => {
         <CustomButton
           theme={buttonThemes.small}
           className={classes["home__buttons_edit"]}
-          onClick={editDocument}
+          onClick={editPlan}
         >
           Редактировать план
         </CustomButton>

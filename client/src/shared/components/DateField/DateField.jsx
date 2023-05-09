@@ -5,7 +5,15 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { TextField } from "@mui/material";
 import ru from "date-fns/locale/ru";
 
-const DateField = ({ placeholder, control, rules, error, name }) => {
+const DateField = ({
+  placeholder,
+  control,
+  rules,
+  error,
+  name,
+  openTo,
+  views,
+}) => {
   return (
     <Controller
       name={name}
@@ -14,6 +22,8 @@ const DateField = ({ placeholder, control, rules, error, name }) => {
       render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ru}>
           <DatePicker
+            openTo={openTo}
+            views={views}
             {...field}
             inputRef={ref}
             label={placeholder}

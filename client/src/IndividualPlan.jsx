@@ -7,6 +7,7 @@ import Register from "./components/Auth/Register/Register";
 import PageWrapper from "./shared/components/PageWrapper/PageWrapper";
 import Home from "./components/Home/Home";
 import AuthenticationGuard from "./shared/guards/AuthenticationGuard";
+import IndividualPlanPage from "./components/IndividualPlanPage/IndividualPlanPage";
 
 const IndividualPlan = () => {
   return (
@@ -20,6 +21,15 @@ const IndividualPlan = () => {
           element={
             <AuthenticationGuard>
               <Home />
+            </AuthenticationGuard>
+          }
+        />
+        <Route
+          index
+          path={APPLICATION_ROUTES.editPlan}
+          element={
+            <AuthenticationGuard>
+              <IndividualPlanPage />
             </AuthenticationGuard>
           }
         />

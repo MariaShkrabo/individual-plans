@@ -8,6 +8,8 @@ import request from "../api/request";
 import { GET_INDIVIDUAL_PLAN_COMMON_DATA } from "../api/requests";
 import { useSelector } from "react-redux";
 import { getMe } from "../../redux/Selectors";
+import { format } from "date-fns";
+import { ru } from "date-fns/locale";
 
 export const useGenerateDocument = () => {
   const me = useSelector(getMe);
@@ -22,11 +24,20 @@ export const useGenerateDocument = () => {
     }
     return obj;
   };
-  
+
   const initIndividualPlanData = useCallback(async () => {
     if (me) {
-      const planData = await request(GET_INDIVIDUAL_PLAN_COMMON_DATA(me.id));
-      setPlanData(setEmptyFields(planData));
+      const { employment_date, ...planData } = await request(
+        GET_INDIVIDUAL_PLAN_COMMON_DATA(me.id)
+      );
+      const updated_employment_date = format(
+        new Date(employment_date),
+        "d MMMM yyyy",
+        {
+          locale: ru,
+        }
+      );
+      setPlanData(setEmptyFields({ updated_employment_date, ...planData }));
     }
   }, [me]);
 

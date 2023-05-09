@@ -7,6 +7,7 @@ export const APPLICATION_ROUTES = {
   login: "/login",
   register: "/register",
   home: "/home",
+  editPlan: "/edit-plan",
 };
 
 export const ENDPOINTS = {
@@ -24,3 +25,34 @@ export const LOCAL_STORAGE_KEYS = {
   expirationTime: "expirationTime",
   keepMeLoggedIn: "keepMeLoggedIn",
 };
+
+export const PLAN_SECTIONS = [
+  {
+    id: "1",
+    title: "Общая информация",
+  },
+  {
+    id: "2",
+    title: "Учебная работа",
+  },
+  {
+    id: "3",
+    title: "Учебно-методическая работа",
+  },
+  {
+    id: "4",
+    title: "Организационно-методическая работа",
+  },
+  {
+    id: "5",
+    title: "Научно-исследовательская работа",
+  },
+  {
+    id: "6",
+    title: "Информационно-воспитательная, общественная и идеологическая работа",
+  },
+  {
+    id: "7",
+    title: "Выполнение нагрузки по месяцам",
+  },
+];
