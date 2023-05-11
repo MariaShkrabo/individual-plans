@@ -18,6 +18,10 @@ export const ENDPOINTS = {
   auth: "/lectors/auth",
   individualPlanCommonInfo: "individual-plan/common-info",
   updateIndividualPlanCommonInfo: "individual-plan/update-common-info",
+  educationalAndMethodicalWork:
+    "individual-plan/educational-and-methodical-work",
+  updateEducationalAndMethodicalWork:
+    "individual-plan/update-educational-and-methodical-work",
 };
 
 export const LOCAL_STORAGE_KEYS = {

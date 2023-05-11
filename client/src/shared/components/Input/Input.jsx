@@ -17,6 +17,7 @@ const Input = ({
   disabled,
   type,
   changingValue = "",
+  multiline
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -52,6 +53,7 @@ const Input = ({
             error={!!error}
             helperText={error?.message}
             disabled={disabled}
+            multiline={multiline}
           />
           {isPassword && (
             <div className={classes["input__show-password"]}>

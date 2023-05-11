@@ -47,7 +47,6 @@ class LectorsController {
       employment_date,
     });
 
-    console.log(lector.id);
     const plan = await IndividualPlans.create({ lectorId: lector.id });
     const token = generateJwt(lector.id, login);
     return res.json({ token });

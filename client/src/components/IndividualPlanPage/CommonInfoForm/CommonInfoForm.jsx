@@ -35,6 +35,7 @@ const CommonInfoForm = () => {
       UPDATE_INDIVIDUAL_PLAN_COMMON_DATA(me.id, setFields(data, null))
     );
     dispatch(showSuccess("Изменения сохранены!"));
+
   };
 
   const initCommonInfoForm = useCallback(async () => {
@@ -229,7 +230,7 @@ const CommonInfoForm = () => {
             control={control}
           />
         </div>
-        <div className={classes["auth__form-control"]}>
+        <div className={classes["common-info-form-control"]}>
           <CustomButton
             color={colors.form}
             theme={buttonThemes.form}

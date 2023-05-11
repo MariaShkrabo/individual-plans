@@ -5,7 +5,10 @@ import { saveAs } from "file-saver";
 import { SERVER_PORT } from "../constants";
 import { useCallback, useEffect, useState } from "react";
 import request from "../api/request";
-import { GET_INDIVIDUAL_PLAN_COMMON_DATA } from "../api/requests";
+import {
+  GET_EDUCATIONAL_AND_METHODICAL_DATA,
+  GET_INDIVIDUAL_PLAN_COMMON_DATA,
+} from "../api/requests";
 import { useSelector } from "react-redux";
 import { getMe } from "../../redux/Selectors";
 import { formatDate } from "../functions/formatDate";
@@ -14,43 +17,82 @@ import { setFields } from "../functions/setFields";
 export const useGenerateDocument = () => {
   const me = useSelector(getMe);
 
-  const [planData, setPlanData] = useState();
+  const [planData, setPlanData] = useState({});
 
   const initIndividualPlanData = useCallback(async () => {
     if (me) {
-      const planData = await request(GET_INDIVIDUAL_PLAN_COMMON_DATA(me.id));
+      const individualPlanData = await request(
+        GET_INDIVIDUAL_PLAN_COMMON_DATA(me.id)
+      );
+
       const updated_employment_date = formatDate(
-        planData.employment_date,
+        individualPlanData.employment_date,
         "d MMMM yyyy"
       );
-      const updated_year_start = formatDate(planData.year_start, "yyyy");
-      const updated_year_end = formatDate(planData.year_end, "yyyy");
+      const updated_year_start = formatDate(
+        individualPlanData.year_start,
+        "yyyy"
+      );
+      const updated_year_end = formatDate(individualPlanData.year_end, "yyyy");
       const updated_plan_approval_date = formatDate(
-        planData.plan_approval_date,
+        individualPlanData.plan_approval_date,
         "d MMMM yyyy"
       );
 
-      const head_of_department = `${planData.head_surname} ${planData.head_name[0]}.${planData.head_father_name[0]}`;
+      const head_of_department = `${individualPlanData.head_surname} ${individualPlanData.head_name[0]}.${individualPlanData.head_father_name[0]}`;
 
       setPlanData(
-        setFields(
-          {
-            head_of_department,
-            updated_employment_date,
-            updated_year_start,
-            updated_year_end,
-            updated_plan_approval_date,
-            ...planData,
-          },
-          ""
+        Object.assign(
+          planData,
+          setFields(
+            {
+              head_of_department,
+              updated_employment_date,
+              updated_year_start,
+              updated_year_end,
+              updated_plan_approval_date,
+              ...individualPlanData,
+            },
+            ""
+          )
         )
       );
     }
-  }, [me]);
+  }, [me, planData]);
+
+  const initEducationalAndMethodicalData = useCallback(async () => {
+    if (me) {
+      const educationalAndMethodicalData = await request(
+        GET_EDUCATIONAL_AND_METHODICAL_DATA(me.id)
+      );
+
+      educationalAndMethodicalData.map((field) => {
+        field.date_start = field.date_start
+          ? formatDate(field.date_start, "dd.MM.yy")
+          : "";
+        field.date_end = field.date_end
+          ? formatDate(field.date_end, "dd.MM.yy")
+          : "";
+      });
+
+      setPlanData(
+        Object.assign(planData, {
+          educational_and_methodical_data: setFields(
+            educationalAndMethodicalData,
+            ""
+          ),
+        })
+      );
+    }
+  }, [me, planData]);
 
   useEffect(() => {
     initIndividualPlanData();
   }, [initIndividualPlanData]);
+
+  useEffect(() => {
+    initEducationalAndMethodicalData();
+  }, [initEducationalAndMethodicalData]);
 
   const loadFile = (url, callback) => {
     PizZipUtils.getBinaryContent(url, callback);

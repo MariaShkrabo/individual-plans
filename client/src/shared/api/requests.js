@@ -22,3 +22,17 @@ export const UPDATE_INDIVIDUAL_PLAN_COMMON_DATA = (lectorId, data) => ({
   url: `${ENDPOINTS.updateIndividualPlanCommonInfo}?id=${lectorId}`,
   data,
 });
+
+export const GET_EDUCATIONAL_AND_METHODICAL_DATA = (individualPlanId) => ({
+  method: "get",
+  url: `${ENDPOINTS.educationalAndMethodicalWork}?id=${individualPlanId}`,
+});
+
+export const UPDATE_EDUCATIONAL_AND_METHODICAL_DATA = (
+  individualPlanId,
+  data
+) => ({
+  method: "put",
+  url: `${ENDPOINTS.updateEducationalAndMethodicalWork}?id=${individualPlanId}`,
+  data,
+});

@@ -6,6 +6,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import CommonInfoForm from "./CommonInfoForm/CommonInfoForm";
+import EducationalAndMethodicalWorks from "./EducationalAndMethodicalWorks/EducationalAndMethodicalWorks";
 
 const IndividualPlanPage = () => {
   const [value, setValue] = useState("1");
@@ -18,6 +19,9 @@ const IndividualPlanPage = () => {
     switch (id) {
       case "1": {
         return <CommonInfoForm />;
+      }
+      case "3": {
+        return <EducationalAndMethodicalWorks />;
       }
       default: {
         return <p>{`Такого раздела нет:(`}</p>;
