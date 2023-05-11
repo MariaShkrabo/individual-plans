@@ -7,7 +7,17 @@ import { Controller } from "react-hook-form";
 import classes from "./input.module.scss";
 import { colors, inputTypes } from "../../enums";
 
-const Input = ({ placeholder, isPassword, control, rules, error, name, disabled, type }) => {
+const Input = ({
+  placeholder,
+  isPassword,
+  control,
+  rules,
+  error,
+  name,
+  disabled,
+  type,
+  changingValue = "",
+}) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const handleToggleShowPassword = () => {
@@ -18,7 +28,6 @@ const Input = ({ placeholder, isPassword, control, rules, error, name, disabled,
     if (!isPassword || (isPassword && isPasswordVisible)) {
       return inputTypes.text;
     }
-
     return inputTypes.password;
   };
 
@@ -39,7 +48,7 @@ const Input = ({ placeholder, isPassword, control, rules, error, name, disabled,
             type={type ? type : getInputType()}
             onChange={onChange}
             onBlur={onBlur}
-            value={value || ""}
+            value={value ?? changingValue}
             error={!!error}
             helperText={error?.message}
             disabled={disabled}

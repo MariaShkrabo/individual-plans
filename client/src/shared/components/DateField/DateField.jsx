@@ -19,7 +19,10 @@ const DateField = ({
       name={name}
       control={control}
       rules={rules}
-      render={({ field: { ref, onBlur, name, ...field }, fieldState }) => (
+      render={({
+        field: { ref, onBlur, name, value, ...field },
+        fieldState,
+      }) => (
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ru}>
           <DatePicker
             openTo={openTo}
@@ -27,6 +30,7 @@ const DateField = ({
             {...field}
             inputRef={ref}
             label={placeholder}
+            value={value || ""}
             renderInput={(inputProps) => (
               <TextField
                 {...inputProps}
@@ -34,6 +38,7 @@ const DateField = ({
                 name={name}
                 error={!!error}
                 helperText={error?.message}
+                value={value || ""}
               />
             )}
           />

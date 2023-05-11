@@ -8,36 +8,43 @@ import request from "../api/request";
 import { GET_INDIVIDUAL_PLAN_COMMON_DATA } from "../api/requests";
 import { useSelector } from "react-redux";
 import { getMe } from "../../redux/Selectors";
-import { format } from "date-fns";
-import { ru } from "date-fns/locale";
+import { formatDate } from "../functions/formatDate";
+import { setFields } from "../functions/setFields";
 
 export const useGenerateDocument = () => {
   const me = useSelector(getMe);
 
   const [planData, setPlanData] = useState();
 
-  const setEmptyFields = (obj) => {
-    for (let key in obj) {
-      if (!obj[key]) {
-        obj[key] = "";
-      }
-    }
-    return obj;
-  };
-
   const initIndividualPlanData = useCallback(async () => {
     if (me) {
-      const { employment_date, ...planData } = await request(
-        GET_INDIVIDUAL_PLAN_COMMON_DATA(me.id)
+      const planData = await request(GET_INDIVIDUAL_PLAN_COMMON_DATA(me.id));
+      const updated_employment_date = formatDate(
+        planData.employment_date,
+        "d MMMM yyyy"
       );
-      const updated_employment_date = format(
-        new Date(employment_date),
-        "d MMMM yyyy",
-        {
-          locale: ru,
-        }
+      const updated_year_start = formatDate(planData.year_start, "yyyy");
+      const updated_year_end = formatDate(planData.year_end, "yyyy");
+      const updated_plan_approval_date = formatDate(
+        planData.plan_approval_date,
+        "d MMMM yyyy"
       );
-      setPlanData(setEmptyFields({ updated_employment_date, ...planData }));
+
+      const head_of_department = `${planData.head_surname} ${planData.head_name[0]}.${planData.head_father_name[0]}`;
+
+      setPlanData(
+        setFields(
+          {
+            head_of_department,
+            updated_employment_date,
+            updated_year_start,
+            updated_year_end,
+            updated_plan_approval_date,
+            ...planData,
+          },
+          ""
+        )
+      );
     }
   }, [me]);
 

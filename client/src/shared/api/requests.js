@@ -16,3 +16,9 @@ export const GET_INDIVIDUAL_PLAN_COMMON_DATA = (lectorId) => ({
   method: "get",
   url: `${ENDPOINTS.individualPlanCommonInfo}?id=${lectorId}`,
 });
+
+export const UPDATE_INDIVIDUAL_PLAN_COMMON_DATA = (lectorId, data) => ({
+  method: "patch",
+  url: `${ENDPOINTS.updateIndividualPlanCommonInfo}?id=${lectorId}`,
+  data,
+});

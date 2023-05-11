@@ -17,6 +17,7 @@ export const ENDPOINTS = {
   register: "/lectors/registration",
   auth: "/lectors/auth",
   individualPlanCommonInfo: "individual-plan/common-info",
+  updateIndividualPlanCommonInfo: "individual-plan/update-common-info",
 };
 
 export const LOCAL_STORAGE_KEYS = {
