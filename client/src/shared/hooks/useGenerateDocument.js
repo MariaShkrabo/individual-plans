@@ -8,6 +8,8 @@ import request from "../api/request";
 import {
   GET_EDUCATIONAL_AND_METHODICAL_DATA,
   GET_INDIVIDUAL_PLAN_COMMON_DATA,
+  GET_INFORMATION_AND_EDUCATIONAL_DATA,
+  GET_ORGANIZATIONAL_AND_METHODICAL_DATA,
 } from "../api/requests";
 import { useSelector } from "react-redux";
 import { getMe } from "../../redux/Selectors";
@@ -60,13 +62,9 @@ export const useGenerateDocument = () => {
     }
   }, [me, planData]);
 
-  const initEducationalAndMethodicalData = useCallback(async () => {
-    if (me) {
-      const educationalAndMethodicalData = await request(
-        GET_EDUCATIONAL_AND_METHODICAL_DATA(me.id)
-      );
-
-      educationalAndMethodicalData.map((field) => {
+  const setGeneralSectionsData = useCallback(
+    (responseData, propertyName) => {
+      responseData.map((field) => {
         field.date_start = field.date_start
           ? formatDate(field.date_start, "dd.MM.yy")
           : "";
@@ -77,22 +75,67 @@ export const useGenerateDocument = () => {
 
       setPlanData(
         Object.assign(planData, {
-          educational_and_methodical_data: setFields(
-            educationalAndMethodicalData,
-            ""
-          ),
+          [propertyName]: setFields(responseData, ""),
         })
       );
+    },
+    [planData]
+  );
+
+  const initEducationalAndMethodicalData = useCallback(async () => {
+    if (me) {
+      const educationalAndMethodicalData = await request(
+        GET_EDUCATIONAL_AND_METHODICAL_DATA(me.id)
+      );
+
+      setGeneralSectionsData(
+        educationalAndMethodicalData,
+        "educational_and_methodical_data"
+      );
     }
-  }, [me, planData]);
+  }, [me, setGeneralSectionsData]);
+
+  const initOrganizationalAndMethodicalData = useCallback(async () => {
+    if (me) {
+      const organizationalAndMethodicalData = await request(
+        GET_ORGANIZATIONAL_AND_METHODICAL_DATA(me.id)
+      );
+
+      setGeneralSectionsData(
+        organizationalAndMethodicalData,
+        "organizational_and_methodical_data"
+      );
+    }
+  }, [me, setGeneralSectionsData]);
+
+  const initInformationAndEducationalData = useCallback(async () => {
+    if (me) {
+      const informationAndEducationalData = await request(
+        GET_INFORMATION_AND_EDUCATIONAL_DATA(me.id)
+      );
+
+      setGeneralSectionsData(
+        informationAndEducationalData,
+        "information_and_educational_data"
+      );
+    }
+  }, [me, setGeneralSectionsData]);
 
   useEffect(() => {
     initIndividualPlanData();
   }, [initIndividualPlanData]);
 
-  useEffect(() => {
+  useEffect(() => { 
     initEducationalAndMethodicalData();
   }, [initEducationalAndMethodicalData]);
+
+  useEffect(() => {
+    initOrganizationalAndMethodicalData();
+  }, [initOrganizationalAndMethodicalData]);
+
+  useEffect(() => {
+    initInformationAndEducationalData();
+  }, [initInformationAndEducationalData]);
 
   const loadFile = (url, callback) => {
     PizZipUtils.getBinaryContent(url, callback);

@@ -10,10 +10,10 @@ const buttonClasses = {
   [buttonThemes.large]: classes.button_large
 };
 
-const CustomButton = ({onClick, theme, type, color, children, ...rest}) => {
+const CustomButton = ({onClick, theme, type, color, children, className, ...rest}) => {
   return <Button
     onClick={onClick}
-    className={`${classes.button} ${buttonClasses[theme]}`}
+    className={`${classes.button} ${buttonClasses[theme]} ${className}`}
     variant='contained'
     color={color}
     type={type}

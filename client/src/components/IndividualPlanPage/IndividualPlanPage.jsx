@@ -7,6 +7,9 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import CommonInfoForm from "./CommonInfoForm/CommonInfoForm";
 import EducationalAndMethodicalWorks from "./EducationalAndMethodicalWorks/EducationalAndMethodicalWorks";
+import OrganizationalAndMethodicalWorks from "./OrganizationalAndMethodicalWorks/OrganizationalAndMethodicalWorks";
+import InformationAndEducationalWorks from "./InformationAndEducationalWorks/InformationAndEducationalWorks";
+import ScientificAndResearchWorks from "./ScientificAndResearchWorks/ScientificAndResearchWorks";
 
 const IndividualPlanPage = () => {
   const [value, setValue] = useState("1");
@@ -22,6 +25,15 @@ const IndividualPlanPage = () => {
       }
       case "3": {
         return <EducationalAndMethodicalWorks />;
+      }
+      case "4": {
+        return <OrganizationalAndMethodicalWorks />;
+      }
+      case "5": {
+        return <ScientificAndResearchWorks />;
+      }
+      case "6": {
+        return <InformationAndEducationalWorks />;
       }
       default: {
         return <p>{`Такого раздела нет:(`}</p>;

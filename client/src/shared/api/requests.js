@@ -36,3 +36,31 @@ export const UPDATE_EDUCATIONAL_AND_METHODICAL_DATA = (
   url: `${ENDPOINTS.updateEducationalAndMethodicalWork}?id=${individualPlanId}`,
   data,
 });
+
+export const GET_ORGANIZATIONAL_AND_METHODICAL_DATA = (individualPlanId) => ({
+  method: "get",
+  url: `${ENDPOINTS.organizationalAndMethodicalWork}?id=${individualPlanId}`,
+});
+
+export const UPDATE_ORGANIZATIONAL_AND_METHODICAL_DATA = (
+  individualPlanId,
+  data
+) => ({
+  method: "put",
+  url: `${ENDPOINTS.updateOrganizationalAndMethodicalWork}?id=${individualPlanId}`,
+  data,
+});
+
+export const GET_INFORMATION_AND_EDUCATIONAL_DATA = (individualPlanId) => ({
+  method: "get",
+  url: `${ENDPOINTS.informationAndEducationalWork}?id=${individualPlanId}`,
+});
+
+export const UPDATE_INFORMATION_AND_EDUCATIONAL_DATA = (
+  individualPlanId,
+  data
+) => ({
+  method: "put",
+  url: `${ENDPOINTS.updateInformationAndEducationalWork}?id=${individualPlanId}`,
+  data,
+});

@@ -9,22 +9,27 @@ const IndividualPlans = sequelize.define("individual_plans", {
   educational_and_methodical_works_hours: {
     type: DataTypes.DOUBLE,
     defaultValue: 0,
+    allowNull: false,
   },
   organizational_and_methodical_works_hours: {
     type: DataTypes.DOUBLE,
     defaultValue: 0,
+    allowNull: false,
   },
   scientific_and_research_works_hours: {
     type: DataTypes.DOUBLE,
     defaultValue: 0,
+    allowNull: false,
   },
   information_and_educational_works_hours: {
     type: DataTypes.DOUBLE,
     defaultValue: 0,
+    allowNull: false,
   },
-  total_hours: { type: DataTypes.DOUBLE, defaultValue: 0 },
+  total_hours: { type: DataTypes.DOUBLE, defaultValue: 0, allowNull: false },
   protocol_number: { type: DataTypes.INTEGER },
   plan_approval_date: { type: DataTypes.DATE },
+  scientific_and_research_theme_name: { type: DataTypes.STRING },
   // lector_id
 });
 
@@ -86,6 +91,64 @@ const EducationalAndMethodicalWorks = sequelize.define(
   }
 );
 
+const OrganizationalAndMethodicalWorks = sequelize.define(
+  "organizational_and_methodical_works",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING, allowNull: false },
+    hours_number: { type: DataTypes.DOUBLE, allowNull: false },
+    date_start: { type: DataTypes.DATE, allowNull: false },
+    date_end: { type: DataTypes.DATE, allowNull: false },
+    head_of_department_mark: { type: DataTypes.STRING },
+    note: { type: DataTypes.STRING },
+    // individual_plan_id
+  }
+);
+
+const InformationAndEducationalWorks = sequelize.define(
+  "information_and_educational_works",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING, allowNull: false },
+    hours_number: { type: DataTypes.DOUBLE, allowNull: false },
+    date_start: { type: DataTypes.DATE, allowNull: false },
+    date_end: { type: DataTypes.DATE, allowNull: false },
+    head_of_department_mark: { type: DataTypes.STRING },
+    note: { type: DataTypes.STRING },
+    // individual_plan_id
+  }
+);
+
+const ScientificAndResearchStudentsWorks = sequelize.define(
+  "scientific_and_research_students_works",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING, allowNull: false },
+    hours_number: { type: DataTypes.DOUBLE, allowNull: false },
+    date_start: { type: DataTypes.DATE, allowNull: false },
+    date_end: { type: DataTypes.DATE, allowNull: false },
+    reporting_form: { type: DataTypes.STRING },
+    head_of_department_mark: { type: DataTypes.STRING },
+    note: { type: DataTypes.STRING },
+    // individual_plan_id
+  }
+);
+
+const ScientificAndResearchWorkStages = sequelize.define(
+  "scientific_and_research_work_stages",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING, allowNull: false },
+    hours_number: { type: DataTypes.DOUBLE, allowNull: false },
+    date_start: { type: DataTypes.DATE, allowNull: false },
+    date_end: { type: DataTypes.DATE, allowNull: false },
+    reporting_form: { type: DataTypes.STRING },
+    head_of_department_mark: { type: DataTypes.STRING },
+    note: { type: DataTypes.STRING },
+    // individual_plan_id
+  }
+);
+
 Lectors.hasOne(IndividualPlans);
 IndividualPlans.belongsTo(Lectors);
 
@@ -109,6 +172,26 @@ IndividualPlans.hasMany(EducationalAndMethodicalWorks, {
 });
 EducationalAndMethodicalWorks.belongsTo(IndividualPlans);
 
+IndividualPlans.hasMany(OrganizationalAndMethodicalWorks, {
+  foreignKey: "individualPlanId",
+});
+OrganizationalAndMethodicalWorks.belongsTo(IndividualPlans);
+
+IndividualPlans.hasMany(InformationAndEducationalWorks, {
+  foreignKey: "individualPlanId",
+});
+InformationAndEducationalWorks.belongsTo(IndividualPlans);
+
+IndividualPlans.hasMany(ScientificAndResearchStudentsWorks, {
+  foreignKey: "individualPlanId",
+});
+ScientificAndResearchStudentsWorks.belongsTo(IndividualPlans);
+
+IndividualPlans.hasMany(ScientificAndResearchWorkStages, {
+  foreignKey: "individualPlanId",
+});
+ScientificAndResearchWorkStages.belongsTo(IndividualPlans);
+
 module.exports = {
   IndividualPlans,
   Lectors,
@@ -117,6 +200,10 @@ module.exports = {
   Specialties,
   Groups,
   EducationalAndMethodicalWorks,
+  OrganizationalAndMethodicalWorks,
+  InformationAndEducationalWorks,
+  ScientificAndResearchWorkStages,
+  ScientificAndResearchStudentsWorks,
 };
 
 // const Work_types = sequelize.define("work_types", {
@@ -164,70 +251,3 @@ module.exports = {
 //   // group_number
 //   // educational_works_id
 // });
-
-// const Organizational_and_methodical_works = sequelize.define(
-//   "organizational_and_methodical_works",
-//   {
-//     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//     name: { type: DataTypes.STRING, allowNull: false },
-//     hours_number: { type: DataTypes.DOUBLE, allowNull: false },
-//     date_start: { type: DataTypes.DATE, allowNull: false },
-//     date_end: { type: DataTypes.DATE, allowNull: false },
-//     head_of_department_mark: { type: DataTypes.STRING },
-//     note: { type: DataTypes.STRING },
-//     // individual_plan_id
-//   }
-// );
-
-// const Information_and_educational_works = sequelize.define(
-//   "information_and_educational_works",
-//   {
-//     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//     name: { type: DataTypes.STRING, allowNull: false },
-//     hours_number: { type: DataTypes.DOUBLE, allowNull: false },
-//     date_start: { type: DataTypes.DATE, allowNull: false },
-//     date_end: { type: DataTypes.DATE, allowNull: false },
-//     head_of_department_mark: { type: DataTypes.STRING },
-//     note: { type: DataTypes.STRING },
-//     // individual_plan_id
-//   }
-// );
-
-// const Scientific_and_research_works = sequelize.define(
-//   "scientific_and_research_works",
-//   {
-//     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//     theme_name: { type: DataTypes.STRING, allowNull: false },
-//     // individual_plan_id
-//   }
-// );
-
-// const Scientific_and_research_students_works = sequelize.define(
-//   "scientific_and_research_students_works",
-//   {
-//     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//     name: { type: DataTypes.STRING, allowNull: false },
-//     hours_number: { type: DataTypes.DOUBLE, allowNull: false },
-//     date_start: { type: DataTypes.DATE, allowNull: false },
-//     date_end: { type: DataTypes.DATE, allowNull: false },
-//     reporting_form: { type: DataTypes.STRING },
-//     head_of_department_mark: { type: DataTypes.STRING },
-//     note: { type: DataTypes.STRING },
-//     // scientific_and_research_id
-//   }
-// );
-
-// const Scientific_and_research_work_stages = sequelize.define(
-//   "scientific_and_research_work_stages",
-//   {
-//     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//     name: { type: DataTypes.STRING, allowNull: false },
-//     hours_number: { type: DataTypes.DOUBLE, allowNull: false },
-//     date_start: { type: DataTypes.DATE, allowNull: false },
-//     date_end: { type: DataTypes.DATE, allowNull: false },
-//     reporting_form: { type: DataTypes.STRING },
-//     head_of_department_mark: { type: DataTypes.STRING },
-//     note: { type: DataTypes.STRING },
-//     // scientific_and_research_id
-//   }
-// );

@@ -22,6 +22,14 @@ export const ENDPOINTS = {
     "individual-plan/educational-and-methodical-work",
   updateEducationalAndMethodicalWork:
     "individual-plan/update-educational-and-methodical-work",
+  organizationalAndMethodicalWork:
+    "individual-plan/organizational-and-methodical-work",
+  updateOrganizationalAndMethodicalWork:
+    "individual-plan/update-organizational-and-methodical-work",
+  informationAndEducationalWork:
+    "individual-plan/information_and_educational_work",
+  updateInformationAndEducationalWork:
+    "individual-plan/update-information_and_educational_work",
 };
 
 export const LOCAL_STORAGE_KEYS = {

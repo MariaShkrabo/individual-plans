@@ -1,12 +1,12 @@
 const sequelize = require("../db");
 const ApiError = require("../error/ApiError");
 
-class EducationalAndMethodicalWorksController {
-  async getEducationalAndMethodicalWorksInfo(req, res) {
+class InformationAndEducationalWorksController {
+  async getInformationAndEducationalWorksInfo(req, res) {
     let { id } = req.query;
 
     const query = `
-      SELECT * FROM public.educational_and_methodical_works
+      SELECT * FROM public.information_and_educational_works
       WHERE "individualPlanId"=${id}
     `;
 
@@ -20,14 +20,14 @@ class EducationalAndMethodicalWorksController {
       });
   }
 
-  async updateEducationalAndMethodicalWorksInfo(req, res, next) {
+  async updateInformationAndEducationalWorksInfo(req, res, next) {
     let { id } = req.query;
 
-    const { educational_and_methodical_works } = req.body;
+    const { information_and_educational_works } = req.body;
 
     let queryData = "";
 
-    educational_and_methodical_works.map((field, index) => {
+    information_and_educational_works.map((field, index) => {
       queryData += `(${index + 1}, '${field.name}', 
     ${field.hours_number}, '${field.date_start}', 
     '${field.date_start}', 
@@ -38,14 +38,14 @@ class EducationalAndMethodicalWorksController {
     },
     ${field.note ? `'${field.note}'` : null},
     ${id})
-    ${educational_and_methodical_works.length - 1 !== index ? "," : ";"}`;
+    ${information_and_educational_works.length - 1 !== index ? "," : ";"}`;
     });
 
     const query = `
-      DELETE FROM public.educational_and_methodical_works 
+      DELETE FROM public.information_and_educational_works
       WHERE "individualPlanId"=${id};
 
-      INSERT INTO public.educational_and_methodical_works
+      INSERT INTO public.information_and_educational_works
       VALUES ${queryData}
     `;
 
@@ -60,4 +60,4 @@ class EducationalAndMethodicalWorksController {
   }
 }
 
-module.exports = new EducationalAndMethodicalWorksController();
+module.exports = new InformationAndEducationalWorksController();
