@@ -15,6 +15,7 @@ import InformationAndEducationalWorks from "./InformationAndEducationalWorks/Inf
 import ScientificAndResearchWorks from "./ScientificAndResearchWorks/ScientificAndResearchWorks";
 import CustomButton from "../../shared/components/Button/Button";
 import { buttonThemes, colors } from "../../shared/enums";
+import EducationalWorks from "./EducationalWorks/EducationalWorks";
 
 const IndividualPlanPage = () => {
   let navigate = useNavigate();
@@ -28,6 +29,9 @@ const IndividualPlanPage = () => {
     switch (id) {
       case "1": {
         return <CommonInfoForm />;
+      }
+      case "2": {
+        return <EducationalWorks />;
       }
       case "3": {
         return <EducationalAndMethodicalWorks />;

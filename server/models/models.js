@@ -68,6 +68,7 @@ const Specialties = sequelize.define("specialties", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, allowNull: false },
   full_name: { type: DataTypes.STRING, allowNull: false },
+  number: { type: DataTypes.STRING, allowNull: false },
   // cathedra_id
 });
 
@@ -149,6 +150,37 @@ const ScientificAndResearchWorkStages = sequelize.define(
   }
 );
 
+const WorkTypes = sequelize.define("work_types", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  name: { type: DataTypes.STRING, allowNull: false },
+});
+
+const EducationalWorks = sequelize.define("educational_works", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  semester: { type: DataTypes.INTEGER, allowNull: false },
+  discipline: { type: DataTypes.STRING, allowNull: false },
+  educational_streams: { type: DataTypes.INTEGER },
+  actually_done_hours_number: { type: DataTypes.DOUBLE },
+  note: { type: DataTypes.STRING },
+  // individual_plan_id
+});
+
+const GroupsForDiscipline = sequelize.define("groups_for_discipline", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  // group_number
+  // educational_works_id
+});
+
+const EducationalWorksSchedulesHours = sequelize.define(
+  "educational_works_schedules_hours",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    hours: { type: DataTypes.DOUBLE },
+    // work_type_id
+    // educational_works_id
+  }
+);
+
 Lectors.hasOne(IndividualPlans);
 IndividualPlans.belongsTo(Lectors);
 
@@ -192,6 +224,40 @@ IndividualPlans.hasMany(ScientificAndResearchWorkStages, {
 });
 ScientificAndResearchWorkStages.belongsTo(IndividualPlans);
 
+//Educational work
+IndividualPlans.hasMany(EducationalWorks, {
+  foreignKey: "individualPlanId",
+});
+EducationalWorks.belongsTo(IndividualPlans);
+
+Faculties.hasMany(EducationalWorks, {
+  foreignKey: "facultyId",
+});
+EducationalWorks.belongsTo(Faculties);
+
+Specialties.hasMany(EducationalWorks, {
+  foreignKey: "specialtyId",
+});
+EducationalWorks.belongsTo(Specialties);
+
+GroupsForDiscipline.hasOne(Groups, {
+  foreignKey: "group_number",
+});
+Groups.belongsTo(GroupsForDiscipline);
+
+EducationalWorks.hasMany(GroupsForDiscipline, {
+  foreignKey: "educationalWorkId",
+});
+GroupsForDiscipline.belongsTo(EducationalWorks);
+
+EducationalWorks.hasMany(EducationalWorksSchedulesHours, {
+  foreignKey: "educationalWorkId",
+});
+EducationalWorksSchedulesHours.belongsTo(EducationalWorks);
+
+WorkTypes.hasMany(EducationalWorksSchedulesHours);
+EducationalWorksSchedulesHours.belongsTo(WorkTypes);
+
 module.exports = {
   IndividualPlans,
   Lectors,
@@ -204,18 +270,10 @@ module.exports = {
   InformationAndEducationalWorks,
   ScientificAndResearchWorkStages,
   ScientificAndResearchStudentsWorks,
+  WorkTypes,
+  GroupsForDiscipline,
+  EducationalWorksSchedulesHours,
 };
-
-// const Work_types = sequelize.define("work_types", {
-//   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//   name: { type: DataTypes.STRING, allowNull: false },
-// });
-
-// const Disciplines = sequelize.define("disciplines", {
-//   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//   name: { type: DataTypes.STRING, allowNull: false },
-//   full_name: { type: DataTypes.STRING, allowNull: false },
-// });
 
 // const Workloads = sequelize.define("workloads", {
 //   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -223,31 +281,4 @@ module.exports = {
 //   // individual_plan_id
 //   // work_type_id
 //   // discipline_id
-// });
-
-// const Educational_works = sequelize.define("educational_works", {
-//   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//   semester: { type: DataTypes.INTEGER, allowNull: false },
-//   educational_streams: { type: DataTypes.INTEGER },
-//   actually_done_hours_number: { type: DataTypes.DOUBLE },
-//   note: { type: DataTypes.STRING },
-//   // individual_plan_id
-// });
-
-// const Educational_works_schedules_hours = sequelize.define(
-//   "educational_works_schedules_hours",
-//   {
-//     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//     semester: { type: DataTypes.INTEGER, allowNull: false },
-//     hours: { type: DataTypes.DOUBLE },
-//     // discipline_id
-//     // work_type_id
-//     // educational_works_id
-//   }
-// );
-
-// const Groups_for_discipline = sequelize.define("groups_for_discipline", {
-//   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//   // group_number
-//   // educational_works_id
 // });
