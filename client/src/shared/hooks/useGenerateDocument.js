@@ -10,6 +10,9 @@ import {
   GET_INDIVIDUAL_PLAN_COMMON_DATA,
   GET_INFORMATION_AND_EDUCATIONAL_DATA,
   GET_ORGANIZATIONAL_AND_METHODICAL_DATA,
+  GET_SCIENTIFIC_THEME,
+  GET_SCIENTIFIC_WORK_STAGES,
+  GET_STUDENTS_SCIENTIFIC_WORK,
 } from "../api/requests";
 import { useSelector } from "react-redux";
 import { getMe } from "../../redux/Selectors";
@@ -121,11 +124,42 @@ export const useGenerateDocument = () => {
     }
   }, [me, setGeneralSectionsData]);
 
+  const initScientificData = useCallback(async () => {
+    if (me) {
+      const { scientific_and_research_theme_name } = await request(
+        GET_SCIENTIFIC_THEME(me.id)
+      );
+      setPlanData(
+        Object.assign(
+          planData,
+          setFields({ scientific_and_research_theme_name }, "")
+        )
+      );
+
+      const stages = await request(GET_SCIENTIFIC_WORK_STAGES(me.id));
+      setGeneralSectionsData(stages, "scientific_and_research_work_stages");
+
+      const students = await request(GET_STUDENTS_SCIENTIFIC_WORK(me.id));
+      setGeneralSectionsData(
+        students,
+        "scientific_and_research_students_works"
+      );
+    }
+  }, [me, planData, setGeneralSectionsData]);
+
+  useEffect(() => {
+    console.log(planData);
+  }, [planData]);
+
+  useEffect(() => {
+    initScientificData();
+  }, [initScientificData]);
+
   useEffect(() => {
     initIndividualPlanData();
   }, [initIndividualPlanData]);
 
-  useEffect(() => { 
+  useEffect(() => {
     initEducationalAndMethodicalData();
   }, [initEducationalAndMethodicalData]);
 

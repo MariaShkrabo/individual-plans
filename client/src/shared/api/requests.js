@@ -64,3 +64,27 @@ export const UPDATE_INFORMATION_AND_EDUCATIONAL_DATA = (
   url: `${ENDPOINTS.updateInformationAndEducationalWork}?id=${individualPlanId}`,
   data,
 });
+
+export const GET_SCIENTIFIC_THEME = (individualPlanId) => ({
+  method: "get",
+  url: `${ENDPOINTS.scientificAndResearchWorkThemeName}?id=${individualPlanId}`,
+});
+
+export const GET_SCIENTIFIC_WORK_STAGES = (individualPlanId) => ({
+  method: "get",
+  url: `${ENDPOINTS.scientificAndResearchWorkStages}?id=${individualPlanId}`,
+});
+
+export const GET_STUDENTS_SCIENTIFIC_WORK = (individualPlanId) => ({
+  method: "get",
+  url: `${ENDPOINTS.scientificAndResearchWorkStudents}?id=${individualPlanId}`,
+});
+
+export const UPDATE_SCIENTIFIC_AND_RESEARCH_WORK_DATA = (
+  individualPlanId,
+  data
+) => ({
+  method: "put",
+  url: `${ENDPOINTS.updateScientificAndResearchWork}?id=${individualPlanId}`,
+  data,
+});

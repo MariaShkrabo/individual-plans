@@ -1,17 +1,23 @@
 import { useState } from "react";
-import classes from "./individual-plan-page.module.scss";
+import { useNavigate } from "react-router-dom";
+
 import { Box, Tab } from "@mui/material";
-import { PLAN_SECTIONS } from "../../shared/constants";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+
+import classes from "./individual-plan-page.module.scss";
+import { PLAN_SECTIONS } from "../../shared/constants";
 import CommonInfoForm from "./CommonInfoForm/CommonInfoForm";
 import EducationalAndMethodicalWorks from "./EducationalAndMethodicalWorks/EducationalAndMethodicalWorks";
 import OrganizationalAndMethodicalWorks from "./OrganizationalAndMethodicalWorks/OrganizationalAndMethodicalWorks";
 import InformationAndEducationalWorks from "./InformationAndEducationalWorks/InformationAndEducationalWorks";
 import ScientificAndResearchWorks from "./ScientificAndResearchWorks/ScientificAndResearchWorks";
+import CustomButton from "../../shared/components/Button/Button";
+import { buttonThemes, colors } from "../../shared/enums";
 
 const IndividualPlanPage = () => {
+  let navigate = useNavigate();
   const [value, setValue] = useState("1");
 
   const handleChange = (event, newValue) => {
@@ -41,6 +47,11 @@ const IndividualPlanPage = () => {
     }
   };
 
+  const back = () => {
+    let path = `/home`;
+    navigate(path);
+  };
+
   return (
     <div className={classes["individual-plan-page"]}>
       <Box
@@ -48,7 +59,7 @@ const IndividualPlanPage = () => {
           width: "70%",
           typography: "body1",
           bgcolor: "white",
-          marginBottom: "70px",
+          marginBottom: "10px",
         }}
       >
         <TabContext value={value}>
@@ -81,6 +92,15 @@ const IndividualPlanPage = () => {
           ))}
         </TabContext>
       </Box>
+      <CustomButton
+        className={classes["individual-plan-page__button_back"]}
+        color={colors.secondary}
+        theme={buttonThemes.medium}
+        type="button"
+        onClick={back}
+      >
+        ← Назад на главную страницу
+      </CustomButton>
     </div>
   );
 };

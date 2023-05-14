@@ -30,6 +30,14 @@ export const ENDPOINTS = {
     "individual-plan/information_and_educational_work",
   updateInformationAndEducationalWork:
     "individual-plan/update-information_and_educational_work",
+  scientificAndResearchWorkThemeName:
+    "individual-plan/scientific_and_research_work/theme-name",
+  scientificAndResearchWorkStages:
+    "individual-plan/scientific_and_research_work/stages",
+  scientificAndResearchWorkStudents:
+    "individual-plan/scientific_and_research_work/students",
+  updateScientificAndResearchWork:
+    "individual-plan/update-scientific_and_research_work",
 };
 
 export const LOCAL_STORAGE_KEYS = {
