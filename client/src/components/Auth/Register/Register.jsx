@@ -38,7 +38,6 @@ const Register = () => {
   const dispatch = useDispatch();
   const passwordValue = watch("password");
   const facultyId = watch("facultyId");
-  const cathedraId = watch("cathedraId");
   const [faculties, setFaculties] = useState([]);
   const [cathedras, setCathedras] = useState([]);
 

@@ -13,6 +13,8 @@ export const APPLICATION_ROUTES = {
 export const ENDPOINTS = {
   faculties: "/faculties",
   cathedras: "/cathedras",
+  specialties: "/specialties/by-faculty",
+  groups: "/groups",
   login: "/lectors/login",
   register: "/lectors/registration",
   auth: "/lectors/auth",
@@ -38,6 +40,7 @@ export const ENDPOINTS = {
     "individual-plan/scientific_and_research_work/students",
   updateScientificAndResearchWork:
     "individual-plan/update-scientific_and_research_work",
+  educationalWork: "/individual-plan/educational-work",
 };
 
 export const LOCAL_STORAGE_KEYS = {
@@ -77,3 +80,71 @@ export const PLAN_SECTIONS = [
     title: "Выполнение нагрузки по месяцам",
   },
 ];
+
+export const WORK_TYPES = [
+  {
+    id: "1",
+    name: "lectures",
+    placeholder: "Лекции"
+  },
+  {
+    id: "2",
+    name: "seminars",
+    placeholder: "Практич. и семинарские занятия"
+  },
+  {
+    id: "3",
+    name: "labs",
+    placeholder: "Лабораторные занятия"
+  },
+  {
+    id: "4",
+    name: "course_design",
+    placeholder: "Курсовое проектирование"
+  },
+  {
+    id: "5",
+    name: "consultations",
+    placeholder: "Консультации"
+  },
+  {
+    id: "6",
+    name: "credit_tests",
+    placeholder: "Зачёты"
+  },
+  {
+    id: "7",
+    name: "exams",
+    placeholder: "Экзамены"
+  },
+  {
+    id: "8",
+    name: "graduate_students_guidance",
+    placeholder: "Руководство аспирантами"
+  },
+  {
+    id: "9",
+    name: "diploma_design",
+    placeholder: "Дипломное проектирование"
+  },
+  {
+    id: "10",
+    name: "sec",
+    placeholder: "ГЭК"
+  },
+  {
+    id: "11",
+    name: "practice",
+    placeholder: "Учебные и произв. практики"
+  },
+  {
+    id: "12",
+    name: "undergraduates_guidance",
+    placeholder: "Руководство магистрантами"
+  },
+  {
+    id: "13",
+    name: "test_works",
+    placeholder: "Контрольные работы и РГР"
+  }
+]

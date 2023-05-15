@@ -150,11 +150,6 @@ const ScientificAndResearchWorkStages = sequelize.define(
   }
 );
 
-const WorkTypes = sequelize.define("work_types", {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  name: { type: DataTypes.STRING, allowNull: false },
-});
-
 const EducationalWorks = sequelize.define("educational_works", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   semester: { type: DataTypes.INTEGER, allowNull: false },
@@ -162,6 +157,20 @@ const EducationalWorks = sequelize.define("educational_works", {
   educational_streams: { type: DataTypes.INTEGER },
   actually_done_hours_number: { type: DataTypes.DOUBLE },
   note: { type: DataTypes.STRING },
+
+  lectures: { type: DataTypes.DOUBLE },
+  seminars: { type: DataTypes.DOUBLE },
+  labs: { type: DataTypes.DOUBLE },
+  course_design: { type: DataTypes.DOUBLE },
+  consultations: { type: DataTypes.DOUBLE },
+  credit_tests: { type: DataTypes.DOUBLE },
+  exams: { type: DataTypes.DOUBLE },
+  graduate_students_guidance: { type: DataTypes.DOUBLE },
+  diploma_design: { type: DataTypes.DOUBLE },
+  sec: { type: DataTypes.DOUBLE },
+  practice: { type: DataTypes.DOUBLE },
+  undergraduates_guidance: { type: DataTypes.DOUBLE },
+  test_works: { type: DataTypes.DOUBLE },
   // individual_plan_id
 });
 
@@ -170,16 +179,6 @@ const GroupsForDiscipline = sequelize.define("groups_for_discipline", {
   // group_number
   // educational_works_id
 });
-
-const EducationalWorksSchedulesHours = sequelize.define(
-  "educational_works_schedules_hours",
-  {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    hours: { type: DataTypes.DOUBLE },
-    // work_type_id
-    // educational_works_id
-  }
-);
 
 Lectors.hasOne(IndividualPlans);
 IndividualPlans.belongsTo(Lectors);
@@ -240,23 +239,13 @@ Specialties.hasMany(EducationalWorks, {
 });
 EducationalWorks.belongsTo(Specialties);
 
-GroupsForDiscipline.hasOne(Groups, {
-  foreignKey: "group_number",
-});
-Groups.belongsTo(GroupsForDiscipline);
+Groups.hasOne(GroupsForDiscipline);
+GroupsForDiscipline.belongsTo(Groups);
 
 EducationalWorks.hasMany(GroupsForDiscipline, {
   foreignKey: "educationalWorkId",
 });
 GroupsForDiscipline.belongsTo(EducationalWorks);
-
-EducationalWorks.hasMany(EducationalWorksSchedulesHours, {
-  foreignKey: "educationalWorkId",
-});
-EducationalWorksSchedulesHours.belongsTo(EducationalWorks);
-
-WorkTypes.hasMany(EducationalWorksSchedulesHours);
-EducationalWorksSchedulesHours.belongsTo(WorkTypes);
 
 module.exports = {
   IndividualPlans,
@@ -270,9 +259,7 @@ module.exports = {
   InformationAndEducationalWorks,
   ScientificAndResearchWorkStages,
   ScientificAndResearchStudentsWorks,
-  WorkTypes,
   GroupsForDiscipline,
-  EducationalWorksSchedulesHours,
 };
 
 // const Workloads = sequelize.define("workloads", {

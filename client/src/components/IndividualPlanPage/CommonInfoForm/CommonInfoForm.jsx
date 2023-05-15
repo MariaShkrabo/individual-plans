@@ -46,7 +46,7 @@ const CommonInfoForm = () => {
         year_end,
         ...commonInfoFormData
       } = await request(GET_INDIVIDUAL_PLAN_COMMON_DATA(me.id));
-      console.log(commonInfoFormData);
+
       reset(commonInfoFormData);
       setValue(
         "head",

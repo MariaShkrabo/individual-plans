@@ -3,38 +3,28 @@ import CustomButton from "../../../shared/components/Button/Button";
 import { buttonThemes, colors } from "../../../shared/enums";
 import classes from "./educational-work.module.scss";
 import EducationalWorksDisciplines from "./EducationalWorksDisciplines/EducationalWorksDisciplines";
-import { useForm } from "react-hook-form";
 
 const EducationalWorks = () => {
   const [isDisciplinesShown, setIsDisciplinesShown] = useState(false);
   const [semester, setSemester] = useState();
-
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-    watch,
-    setValue,
-    reset,
-  } = useForm({ mode: "onTouched" });
 
   const showDisciplines = () => {
     switch (semester) {
       case 1:
         return (
           <EducationalWorksDisciplines
-            control={control}
-            name="educational_works_first_semester"
+            name="first_semester"
             title="за осенний семестр"
+            semester={1}
             setIsDisciplinesShown={setIsDisciplinesShown}
           />
         );
       case 2:
         return (
           <EducationalWorksDisciplines
-            control={control}
-            name="educational_works_second_semester"
+            name="second_semester"
             title="за весенний семестр"
+            semester={2}
             setIsDisciplinesShown={setIsDisciplinesShown}
           />
         );

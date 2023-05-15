@@ -17,6 +17,7 @@ const CustomSelect = ({
   rules,
   error,
   disabled,
+  multiple = false,
 }) => {
   return (
     <FormControl fullWidth error={!!error} disabled={disabled}>
@@ -32,10 +33,14 @@ const CustomSelect = ({
             value={value || ""}
             onChange={onChange}
             onBlur={onBlur}
+            multiple={multiple}
           >
             {options.map((option) => (
-              <MenuItem key={option.id} value={option.id}>
-                {option.name}
+              <MenuItem
+                key={option.id || option.number}
+                value={option.id || option.number}
+              >
+                {option.name || option.number}
               </MenuItem>
             ))}
           </Select>

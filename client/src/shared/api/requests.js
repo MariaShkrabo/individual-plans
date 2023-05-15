@@ -4,6 +4,14 @@ export const GET_CATHEDRAS = (facultyId) => ({
   method: "get",
   url: `${ENDPOINTS.cathedras}?facultyId=${facultyId}`,
 });
+export const GET_SPECIALTY_BY_FACULTY = (facultyId) => ({
+  method: "get",
+  url: `${ENDPOINTS.specialties}?facultyId=${facultyId}`,
+});
+export const GET_GROUPS = (specialtyId) => ({
+  method: "get",
+  url: `${ENDPOINTS.groups}?specialtyId=${specialtyId}`,
+});
 export const GET_FACULTIES = { method: "get", url: ENDPOINTS.faculties };
 export const REGISTER = (data) => ({
   method: "post",
@@ -87,4 +95,9 @@ export const UPDATE_SCIENTIFIC_AND_RESEARCH_WORK_DATA = (
   method: "put",
   url: `${ENDPOINTS.updateScientificAndResearchWork}?id=${individualPlanId}`,
   data,
+});
+
+export const GET_EDUCATIONAL_WORK = (individualPlanId, semester) => ({
+  method: "get",
+  url: `${ENDPOINTS.educationalWork}?individualPlanId=${individualPlanId}&semester=${semester}`,
 });

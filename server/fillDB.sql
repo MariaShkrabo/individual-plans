@@ -60,3 +60,8 @@ VALUES (1, 'Лекции'),
 (11, 'Учебные и произв. практики'),
 (12, 'Руководство магистрантами'),
 (13, 'Контрольные работы и РГР')
+
+
+SELECT * FROM public.educational_works
+SELECT * FROM public.educational_works_schedules_hours
+SELECT * FROM public.groups_for_disciplines
