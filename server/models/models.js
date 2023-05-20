@@ -171,6 +171,8 @@ const EducationalWorks = sequelize.define("educational_works", {
   practice: { type: DataTypes.DOUBLE },
   undergraduates_guidance: { type: DataTypes.DOUBLE },
   test_works: { type: DataTypes.DOUBLE },
+  total_hours: { type: DataTypes.DOUBLE },
+  students_quantity: { type: DataTypes.INTEGER },
   // individual_plan_id
 });
 
@@ -229,14 +231,10 @@ IndividualPlans.hasMany(EducationalWorks, {
 });
 EducationalWorks.belongsTo(IndividualPlans);
 
-Faculties.hasMany(EducationalWorks, {
-  foreignKey: "facultyId",
-});
+Faculties.hasMany(EducationalWorks);
 EducationalWorks.belongsTo(Faculties);
 
-Specialties.hasMany(EducationalWorks, {
-  foreignKey: "specialtyId",
-});
+Specialties.hasMany(EducationalWorks);
 EducationalWorks.belongsTo(Specialties);
 
 Groups.hasOne(GroupsForDiscipline);
@@ -260,6 +258,7 @@ module.exports = {
   ScientificAndResearchWorkStages,
   ScientificAndResearchStudentsWorks,
   GroupsForDiscipline,
+  EducationalWorks,
 };
 
 // const Workloads = sequelize.define("workloads", {

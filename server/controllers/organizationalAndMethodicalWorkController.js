@@ -28,7 +28,7 @@ class OrganizationalAndMethodicalWorksController {
     let queryData = "";
 
     organizational_and_methodical_works.map((field, index) => {
-      queryData += `(${index + 1}, '${field.name}', 
+      queryData += `(DEFAULT, '${field.name}', 
     ${field.hours_number}, '${field.date_start}', 
     '${field.date_start}', 
     ${

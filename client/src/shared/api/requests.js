@@ -101,3 +101,24 @@ export const GET_EDUCATIONAL_WORK = (individualPlanId, semester) => ({
   method: "get",
   url: `${ENDPOINTS.educationalWork}?individualPlanId=${individualPlanId}&semester=${semester}`,
 });
+
+export const UPDATE_EDUCATIONAL_WORK = (individualPlanId, semester, data) => ({
+  method: "put",
+  url: `${ENDPOINTS.updateEducationalWork}?individualPlanId=${individualPlanId}&semester=${semester}`,
+  data,
+});
+
+export const GET_EDUCATIONAL_WORK_SCHEDULED_HOURS = (
+  individualPlanId,
+  semester
+) => ({
+  method: "get",
+  url: `${ENDPOINTS.educationalWorkScheduledHours}?individualPlanId=${individualPlanId}&semester=${semester}`,
+});
+
+export const GET_TOTAL_EDUCATIONAL_WORK_SCHEDULED_HOURS = (
+  individualPlanId
+) => ({
+  method: "get",
+  url: `${ENDPOINTS.totalEducationalWorkScheduledHours}?individualPlanId=${individualPlanId}`,
+});

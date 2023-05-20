@@ -6,8 +6,14 @@ import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMe } from "../../../../redux/Selectors";
 import request from "../../../../shared/api/request";
-import { GET_EDUCATIONAL_WORK } from "../../../../shared/api/requests";
+import {
+  GET_EDUCATIONAL_WORK,
+  UPDATE_EDUCATIONAL_WORK,
+} from "../../../../shared/api/requests";
 import EducationalWorksDiscipline from "./EducationalWorksDiscipline/EducationalWorksDiscipline";
+import { v4 as uuidv4 } from "uuid";
+import { showSuccess } from "../../../../redux/Actions";
+import { setFields } from "../../../../shared/functions/setFields";
 
 const EducationalWorksDisciplines = ({
   name,
@@ -35,26 +41,29 @@ const EducationalWorksDisciplines = ({
   const addField = () => {
     append({
       discipline: "",
-      faculty_id: "",
-      specialty_id: "",
+      facultyId: null,
+      specialtyId: null,
       groups: [],
-      students_quantity: "",
-      educational_streams: "",
-      lectures: "",
-      seminars: "",
-      labs: "",
-      course_design: "",
-      consultations: "",
-      credit_tests: "",
-      exams: "",
-      graduate_students_guidance: "",
-      diploma_design: "",
-      sec: "",
-      practice: "",
-      undergraduates_guidance: "",
-      test_works: "",
-      actually_done_hours_number: "",
+      students_quantity: null,
+      educational_streams: null,
+      lectures: null,
+      seminars: null,
+      labs: null,
+      course_design: null,
+      consultations: null,
+      credit_tests: null,
+      exams: null,
+      graduate_students_guidance: null,
+      diploma_design: null,
+      sec: null,
+      practice: null,
+      undergraduates_guidance: null,
+      test_works: null,
+      total_hours: null,
+      actually_done_hours_number: null,
       note: "",
+      semester: semester,
+      individualPlanId: me.id
     });
   };
 
@@ -62,6 +71,7 @@ const EducationalWorksDisciplines = ({
     if (me) {
       const data = await request(GET_EDUCATIONAL_WORK(me.id, semester));
       setValue(name, [...data]);
+      console.log(data)
     }
   }, [me, name, semester, setValue]);
 
@@ -69,7 +79,14 @@ const EducationalWorksDisciplines = ({
     initForm();
   }, [initForm]);
 
-  const save = (data) => console.log(data);
+  const save = async (formData) => {
+    const data = { ...formData };
+    console.log(data);
+    await request(
+      UPDATE_EDUCATIONAL_WORK(me.id, semester, setFields(data, null))
+    );
+    dispatch(showSuccess("Изменения сохранены!"));
+  };
 
   return (
     <form onSubmit={handleSubmit(save)}>

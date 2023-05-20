@@ -35,7 +35,7 @@ const IndividualPlan = () => {
         />
         <Route
           path="*"
-          element={<Navigate to={APPLICATION_ROUTES.home} replace />}
+          element={<Navigate to={APPLICATION_ROUTES.login} replace />}
         ></Route>
       </Routes>
     </PageWrapper>

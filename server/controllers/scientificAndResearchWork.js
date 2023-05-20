@@ -61,7 +61,7 @@ class ScientificAndResearchWorkController {
       let queryData = "";
 
       responseData.map((field, index) => {
-        queryData += `(${index + 1}, '${field.name}', 
+        queryData += `(DEFAULT, '${field.name}', 
       ${field.hours_number}, '${field.date_start}', 
       '${field.date_start}',
       ${field.reporting_form ? `'${field.reporting_form}'` : null},

@@ -20,9 +20,64 @@ const EducationalWorksDiscipline = ({
   watch,
   setValue,
 }) => {
-  const facultyId = watch(`${name}.${index}.faculty_id`);
-  const specialtyId = watch(`${name}.${index}.specialty_id`);
+  const facultyId = watch(`${name}.${index}.facultyId`);
+  const specialtyId = watch(`${name}.${index}.specialtyId`);
   const groupsForDiscipline = watch(`${name}.${index}.groups`);
+  const totalHours = watch(`${name}.${index}.total_hours`);
+
+  const lectures = watch(`${name}.${index}.lectures`);
+  const seminars = watch(`${name}.${index}.seminars`);
+  const labs = watch(`${name}.${index}.labs`);
+  const courseDesign = watch(`${name}.${index}.course_design`);
+  const consultations = watch(`${name}.${index}.consultations`);
+  const creditTests = watch(`${name}.${index}.credit_tests`);
+  const exams = watch(`${name}.${index}.exams`);
+  const graduateStudentsGuidance = watch(
+    `${name}.${index}.graduate_students_guidance`
+  );
+  const diplomaDesign = watch(`${name}.${index}.diploma_design`);
+  const sec = watch(`${name}.${index}.sec`);
+  const practice = watch(`${name}.${index}.practice`);
+  const undergraduatesGuidance = watch(
+    `${name}.${index}.undergraduates_guidance`
+  );
+  const testWorks = watch(`${name}.${index}.test_works`);
+
+  useEffect(() => {
+    setValue(
+      `${name}.${index}.total_hours`,
+      (+lectures +
+        +seminars +
+        +labs +
+        +courseDesign +
+        +consultations +
+        +creditTests +
+        +exams +
+        +graduateStudentsGuidance +
+        +diplomaDesign +
+        +sec +
+        +practice +
+        +undergraduatesGuidance +
+        +testWorks).toFixed(1)
+    );
+  }, [
+    consultations,
+    courseDesign,
+    creditTests,
+    diplomaDesign,
+    exams,
+    graduateStudentsGuidance,
+    index,
+    labs,
+    lectures,
+    name,
+    practice,
+    sec,
+    seminars,
+    setValue,
+    testWorks,
+    undergraduatesGuidance,
+  ]);
 
   const [faculties, setFaculties] = useState([]);
   const [specialties, setSpecialties] = useState([]);
@@ -42,6 +97,8 @@ const EducationalWorksDiscipline = ({
     const groups = await request(GET_GROUPS(specialtyId));
     setGroups(groups);
   }, [specialtyId]);
+
+  useEffect(() => {}, [totalHours]);
 
   useEffect(() => {
     let students = 0;
@@ -82,7 +139,7 @@ const EducationalWorksDiscipline = ({
       </div>
       <div className={classes["educational-work__control"]}>
         <CustomSelect
-          name={`${name}.${index}.faculty_id`}
+          name={`${name}.${index}.facultyId`}
           placeholder="Факультет"
           control={control}
           options={faculties}
@@ -90,7 +147,7 @@ const EducationalWorksDiscipline = ({
       </div>
       <div className={classes["educational-work__control"]}>
         <CustomSelect
-          name={`${name}.${index}.specialty_id`}
+          name={`${name}.${index}.specialtyId`}
           placeholder="Специальность"
           control={control}
           options={specialties}
@@ -136,6 +193,7 @@ const EducationalWorksDiscipline = ({
               placeholder={`${type.placeholder}`}
               control={control}
               type="number"
+              disabled={type.name === "total_hours" ? true : false}
             />
           </div>
         ))}

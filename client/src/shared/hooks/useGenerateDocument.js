@@ -7,12 +7,15 @@ import { useCallback, useEffect, useState } from "react";
 import request from "../api/request";
 import {
   GET_EDUCATIONAL_AND_METHODICAL_DATA,
+  GET_EDUCATIONAL_WORK,
+  GET_EDUCATIONAL_WORK_SCHEDULED_HOURS,
   GET_INDIVIDUAL_PLAN_COMMON_DATA,
   GET_INFORMATION_AND_EDUCATIONAL_DATA,
   GET_ORGANIZATIONAL_AND_METHODICAL_DATA,
   GET_SCIENTIFIC_THEME,
   GET_SCIENTIFIC_WORK_STAGES,
   GET_STUDENTS_SCIENTIFIC_WORK,
+  GET_TOTAL_EDUCATIONAL_WORK_SCHEDULED_HOURS,
 } from "../api/requests";
 import { useSelector } from "react-redux";
 import { getMe } from "../../redux/Selectors";
@@ -67,7 +70,8 @@ export const useGenerateDocument = () => {
 
   const setGeneralSectionsData = useCallback(
     (responseData, propertyName) => {
-      responseData.map((field) => {
+      responseData.map((field, index) => {
+        field.id = index + 1;
         field.date_start = field.date_start
           ? formatDate(field.date_start, "dd.MM.yy")
           : "";
@@ -84,6 +88,31 @@ export const useGenerateDocument = () => {
     },
     [planData]
   );
+
+  const initEducationalData = useCallback(async () => {
+    if (me) {
+      const first_semester = await request(GET_EDUCATIONAL_WORK(me.id, 1));
+      const second_semester = await request(GET_EDUCATIONAL_WORK(me.id, 2));
+
+      const first_semester_scheduled_hours = await request(
+        GET_EDUCATIONAL_WORK_SCHEDULED_HOURS(me.id, 1)
+      );
+      const second_semester_scheduled_hours = await request(
+        GET_EDUCATIONAL_WORK_SCHEDULED_HOURS(me.id, 2)
+      );
+      const total_scheduled_hours = await request(
+        GET_TOTAL_EDUCATIONAL_WORK_SCHEDULED_HOURS(me.id)
+      );
+
+      setGeneralSectionsData(first_semester, "first_semester");
+      setGeneralSectionsData(second_semester, "second_semester");
+
+      setGeneralSectionsData(first_semester_scheduled_hours, "fs_sch_h");
+      setGeneralSectionsData(second_semester_scheduled_hours, "ss_sch_h");
+
+      setGeneralSectionsData(total_scheduled_hours, "t_sch_h");
+    }
+  }, [me, setGeneralSectionsData]);
 
   const initEducationalAndMethodicalData = useCallback(async () => {
     if (me) {
@@ -150,6 +179,10 @@ export const useGenerateDocument = () => {
   useEffect(() => {
     console.log(planData);
   }, [planData]);
+
+  useEffect(() => {
+    initEducationalData();
+  }, [initEducationalData]);
 
   useEffect(() => {
     initScientificData();

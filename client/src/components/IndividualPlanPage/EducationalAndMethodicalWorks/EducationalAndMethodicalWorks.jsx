@@ -62,6 +62,7 @@ const EducationalAndMethodicalWorks = () => {
 
   const save = async (formData) => {
     const data = { ...formData };
+    console.log(data)
     await request(
       UPDATE_EDUCATIONAL_AND_METHODICAL_DATA(me.id, setFields(data, null))
     );

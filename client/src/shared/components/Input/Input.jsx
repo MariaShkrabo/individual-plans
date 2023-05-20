@@ -17,7 +17,7 @@ const Input = ({
   disabled,
   type,
   changingValue = "",
-  multiline
+  multiline,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 

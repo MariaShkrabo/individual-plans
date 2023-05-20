@@ -13,7 +13,7 @@ const EducationalWorks = () => {
       case 1:
         return (
           <EducationalWorksDisciplines
-            name="first_semester"
+            name="educational_works"
             title="за осенний семестр"
             semester={1}
             setIsDisciplinesShown={setIsDisciplinesShown}
@@ -22,7 +22,7 @@ const EducationalWorks = () => {
       case 2:
         return (
           <EducationalWorksDisciplines
-            name="second_semester"
+            name="educational_works"
             title="за весенний семестр"
             semester={2}
             setIsDisciplinesShown={setIsDisciplinesShown}

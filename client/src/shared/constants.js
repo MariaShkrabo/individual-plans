@@ -41,6 +41,11 @@ export const ENDPOINTS = {
   updateScientificAndResearchWork:
     "individual-plan/update-scientific_and_research_work",
   educationalWork: "/individual-plan/educational-work",
+  updateEducationalWork: "/individual-plan/update-educational-work",
+  educationalWorkScheduledHours:
+    "/individual-plan/educational-work/scheduled-hours",
+  totalEducationalWorkScheduledHours:
+    "/individual-plan/educational-work/total-scheduled-hours",
 };
 
 export const LOCAL_STORAGE_KEYS = {
@@ -85,66 +90,71 @@ export const WORK_TYPES = [
   {
     id: "1",
     name: "lectures",
-    placeholder: "Лекции"
+    placeholder: "Лекции",
   },
   {
     id: "2",
     name: "seminars",
-    placeholder: "Практич. и семинарские занятия"
+    placeholder: "Практич. и семинарские занятия",
   },
   {
     id: "3",
     name: "labs",
-    placeholder: "Лабораторные занятия"
+    placeholder: "Лабораторные занятия",
   },
   {
     id: "4",
     name: "course_design",
-    placeholder: "Курсовое проектирование"
+    placeholder: "Курсовое проектирование",
   },
   {
     id: "5",
     name: "consultations",
-    placeholder: "Консультации"
+    placeholder: "Консультации",
   },
   {
     id: "6",
     name: "credit_tests",
-    placeholder: "Зачёты"
+    placeholder: "Зачёты",
   },
   {
     id: "7",
     name: "exams",
-    placeholder: "Экзамены"
+    placeholder: "Экзамены",
   },
   {
     id: "8",
     name: "graduate_students_guidance",
-    placeholder: "Руководство аспирантами"
+    placeholder: "Руководство аспирантами",
   },
   {
     id: "9",
     name: "diploma_design",
-    placeholder: "Дипломное проектирование"
+    placeholder: "Дипломное проектирование",
   },
   {
     id: "10",
     name: "sec",
-    placeholder: "ГЭК"
+    placeholder: "ГЭК",
   },
   {
     id: "11",
     name: "practice",
-    placeholder: "Учебные и произв. практики"
+    placeholder: "Учебные и произв. практики",
   },
   {
     id: "12",
     name: "undergraduates_guidance",
-    placeholder: "Руководство магистрантами"
+    placeholder: "Руководство магистрантами",
   },
   {
     id: "13",
     name: "test_works",
-    placeholder: "Контрольные работы и РГР"
-  }
-]
+    placeholder: "Контрольные работы и РГР",
+  },
+  {
+    id: "14",
+    name: "total_hours",
+    placeholder: "Всего",
+  },
+];

@@ -35,7 +35,6 @@ const CommonInfoForm = () => {
       UPDATE_INDIVIDUAL_PLAN_COMMON_DATA(me.id, setFields(data, null))
     );
     dispatch(showSuccess("Изменения сохранены!"));
-
   };
 
   const initCommonInfoForm = useCallback(async () => {
@@ -84,7 +83,7 @@ const CommonInfoForm = () => {
         +organizationalAndMethodicalWorksHours +
         +scientificAndResearchWorksHours +
         +informationAndEducationalWorksHours
-    );
+    ); 
   }, [
     educationalAndMethodicalWorksHours,
     educationalWorksHours,
