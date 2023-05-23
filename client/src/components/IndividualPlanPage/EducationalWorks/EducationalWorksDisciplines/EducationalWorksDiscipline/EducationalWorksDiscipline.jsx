@@ -23,8 +23,6 @@ const EducationalWorksDiscipline = ({
   const facultyId = watch(`${name}.${index}.facultyId`);
   const specialtyId = watch(`${name}.${index}.specialtyId`);
   const groupsForDiscipline = watch(`${name}.${index}.groups`);
-  const totalHours = watch(`${name}.${index}.total_hours`);
-
   const lectures = watch(`${name}.${index}.lectures`);
   const seminars = watch(`${name}.${index}.seminars`);
   const labs = watch(`${name}.${index}.labs`);
@@ -46,7 +44,8 @@ const EducationalWorksDiscipline = ({
   useEffect(() => {
     setValue(
       `${name}.${index}.total_hours`,
-      (+lectures +
+      (
+        +lectures +
         +seminars +
         +labs +
         +courseDesign +
@@ -58,7 +57,8 @@ const EducationalWorksDiscipline = ({
         +sec +
         +practice +
         +undergraduatesGuidance +
-        +testWorks).toFixed(1)
+        +testWorks
+      ).toFixed(1)
     );
   }, [
     consultations,
@@ -97,8 +97,6 @@ const EducationalWorksDiscipline = ({
     const groups = await request(GET_GROUPS(specialtyId));
     setGroups(groups);
   }, [specialtyId]);
-
-  useEffect(() => {}, [totalHours]);
 
   useEffect(() => {
     let students = 0;

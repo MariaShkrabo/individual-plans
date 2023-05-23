@@ -16,6 +16,7 @@ import ScientificAndResearchWorks from "./ScientificAndResearchWorks/ScientificA
 import CustomButton from "../../shared/components/Button/Button";
 import { buttonThemes, colors } from "../../shared/enums";
 import EducationalWorks from "./EducationalWorks/EducationalWorks";
+import Workload from "./Workload/Workload";
 
 const IndividualPlanPage = () => {
   let navigate = useNavigate();
@@ -44,6 +45,9 @@ const IndividualPlanPage = () => {
       }
       case "6": {
         return <InformationAndEducationalWorks />;
+      }
+      case "7": {
+        return <Workload />;
       }
       default: {
         return <p>{`Такого раздела нет:(`}</p>;

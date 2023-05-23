@@ -5,6 +5,11 @@ import request from "../../../shared/api/request";
 import { useCallback, useEffect } from "react";
 import {
   GET_INDIVIDUAL_PLAN_COMMON_DATA,
+  GET_TOTAL_EDUCATIONAL_AND_METHODICAL_HOURS,
+  GET_TOTAL_EDUCATIONAL_WORK_SCHEDULED_HOURS,
+  GET_TOTAL_INFORMATION_AND_EDUCATIONAL_HOURS,
+  GET_TOTAL_ORGANIZATIONAL_AND_METHODICAL_HOURS,
+  GET_TOTAL_SCIENTIFIC_AND_RESEARCH_WORK_HOURS,
   UPDATE_INDIVIDUAL_PLAN_COMMON_DATA,
 } from "../../../shared/api/requests";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,7 +51,40 @@ const CommonInfoForm = () => {
         ...commonInfoFormData
       } = await request(GET_INDIVIDUAL_PLAN_COMMON_DATA(me.id));
 
+      const total_hours = await request(
+        GET_TOTAL_EDUCATIONAL_WORK_SCHEDULED_HOURS(me.id)
+      );
+      const { educational_and_methodical_works_hours } = await request(
+        GET_TOTAL_EDUCATIONAL_AND_METHODICAL_HOURS(me.id)
+      );
+      const { organizational_and_methodical_works_hours } = await request(
+        GET_TOTAL_ORGANIZATIONAL_AND_METHODICAL_HOURS(me.id)
+      );
+      const { information_and_educational_works_hours } = await request(
+        GET_TOTAL_INFORMATION_AND_EDUCATIONAL_HOURS(me.id)
+      );
+      const { scientific_and_research_works_hours } = await request(
+        GET_TOTAL_SCIENTIFIC_AND_RESEARCH_WORK_HOURS(me.id)
+      );
+
       reset(commonInfoFormData);
+      setValue("educational_works_hours", total_hours[0].total_hours);
+      setValue(
+        "educational_and_methodical_works_hours",
+        educational_and_methodical_works_hours
+      );
+      setValue(
+        "organizational_and_methodical_works_hours",
+        organizational_and_methodical_works_hours
+      );
+      setValue(
+        "information_and_educational_works_hours",
+        information_and_educational_works_hours
+      );
+      setValue(
+        "scientific_and_research_works_hours",
+        scientific_and_research_works_hours
+      );
       setValue(
         "head",
         `${commonInfoFormData.head_surname} ${commonInfoFormData.head_name[0]}.${commonInfoFormData.head_father_name[0]}.`
@@ -83,7 +121,7 @@ const CommonInfoForm = () => {
         +organizationalAndMethodicalWorksHours +
         +scientificAndResearchWorksHours +
         +informationAndEducationalWorksHours
-    ); 
+    );
   }, [
     educationalAndMethodicalWorksHours,
     educationalWorksHours,

@@ -122,3 +122,47 @@ export const GET_TOTAL_EDUCATIONAL_WORK_SCHEDULED_HOURS = (
   method: "get",
   url: `${ENDPOINTS.totalEducationalWorkScheduledHours}?individualPlanId=${individualPlanId}`,
 });
+
+export const GET_TOTAL_EDUCATIONAL_AND_METHODICAL_HOURS = (
+  individualPlanId
+) => ({
+  method: "get",
+  url: `${ENDPOINTS.totalEducationalAndMethodicalWorksHours}?individualPlanId=${individualPlanId}`,
+});
+
+export const GET_TOTAL_ORGANIZATIONAL_AND_METHODICAL_HOURS = (
+  individualPlanId
+) => ({
+  method: "get",
+  url: `${ENDPOINTS.totalOrganizationalAndMethodicalWorksHours}?individualPlanId=${individualPlanId}`,
+});
+
+export const GET_TOTAL_INFORMATION_AND_EDUCATIONAL_HOURS = (
+  individualPlanId
+) => ({
+  method: "get",
+  url: `${ENDPOINTS.totalInformationAndEducationalWorksHours}?individualPlanId=${individualPlanId}`,
+});
+
+export const GET_TOTAL_SCIENTIFIC_AND_RESEARCH_WORK_HOURS = (
+  individualPlanId
+) => ({
+  method: "get",
+  url: `${ENDPOINTS.totalScientificAndResearchWorksHours}?individualPlanId=${individualPlanId}`,
+});
+
+export const GET_DAY_WORKLOAD = (individualPlanId, month, day) => ({
+  method: "get",
+  url: `${ENDPOINTS.dayWorkload}?individualPlanId=${individualPlanId}&month=${month}&day=${day}`,
+});
+
+export const UPDATE_DAY_WORKLOAD = (individualPlanId, month, day, data) => ({
+  method: "put",
+  url: `${ENDPOINTS.updateDayWorkload}?individualPlanId=${individualPlanId}&month=${month}&day=${day}`,
+  data,
+});
+
+export const GET_MONTH_WORKLOAD = (individualPlanId, month) => ({
+  method: "get",
+  url: `${ENDPOINTS.monthWorkload}?individualPlanId=${individualPlanId}&month=${month}`,
+});

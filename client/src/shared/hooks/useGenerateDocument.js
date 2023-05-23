@@ -11,6 +11,7 @@ import {
   GET_EDUCATIONAL_WORK_SCHEDULED_HOURS,
   GET_INDIVIDUAL_PLAN_COMMON_DATA,
   GET_INFORMATION_AND_EDUCATIONAL_DATA,
+  GET_MONTH_WORKLOAD,
   GET_ORGANIZATIONAL_AND_METHODICAL_DATA,
   GET_SCIENTIFIC_THEME,
   GET_SCIENTIFIC_WORK_STAGES,
@@ -21,6 +22,7 @@ import { useSelector } from "react-redux";
 import { getMe } from "../../redux/Selectors";
 import { formatDate } from "../functions/formatDate";
 import { setFields } from "../functions/setFields";
+import { transformMonth } from "../functions/transformMonth";
 
 export const useGenerateDocument = () => {
   const me = useSelector(getMe);
@@ -88,6 +90,46 @@ export const useGenerateDocument = () => {
     },
     [planData]
   );
+
+  const initWorkloadData = useCallback(async () => {
+    if (me) {
+      setPlanData(
+        Object.assign(
+          planData,
+          {
+            sep: transformMonth(await request(GET_MONTH_WORKLOAD(me.id, 9))),
+          },
+          {
+            oct: transformMonth(await request(GET_MONTH_WORKLOAD(me.id, 10))),
+          },
+          {
+            nov: transformMonth(await request(GET_MONTH_WORKLOAD(me.id, 11))),
+          },
+          {
+            dec: transformMonth(await request(GET_MONTH_WORKLOAD(me.id, 12))),
+          },
+          {
+            jan: transformMonth(await request(GET_MONTH_WORKLOAD(me.id, 1))),
+          },
+          {
+            feb: transformMonth(await request(GET_MONTH_WORKLOAD(me.id, 2))),
+          },
+          {
+            mar: transformMonth(await request(GET_MONTH_WORKLOAD(me.id, 3))),
+          },
+          {
+            apr: transformMonth(await request(GET_MONTH_WORKLOAD(me.id, 4))),
+          },
+          {
+            may: transformMonth(await request(GET_MONTH_WORKLOAD(me.id, 5))),
+          },
+          {
+            jun: transformMonth(await request(GET_MONTH_WORKLOAD(me.id, 6))),
+          }
+        )
+      );
+    }
+  }, [me, planData]);
 
   const initEducationalData = useCallback(async () => {
     if (me) {
@@ -203,6 +245,10 @@ export const useGenerateDocument = () => {
   useEffect(() => {
     initInformationAndEducationalData();
   }, [initInformationAndEducationalData]);
+
+  useEffect(() => {
+    initWorkloadData();
+  }, [initWorkloadData]);
 
   const loadFile = (url, callback) => {
     PizZipUtils.getBinaryContent(url, callback);

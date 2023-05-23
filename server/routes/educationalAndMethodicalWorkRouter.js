@@ -8,6 +8,11 @@ router.get(
   educationalAndMethodicalWorkController.getEducationalAndMethodicalWorksInfo
 );
 
+router.get(
+  "/educational-and-methodical-work/total-hours",
+  educationalAndMethodicalWorkController.getTotalEducationalAndMethodicalWorksHours
+);
+
 router.put(
   "/update-educational-and-methodical-work",
   educationalAndMethodicalWorkController.updateEducationalAndMethodicalWorksInfo

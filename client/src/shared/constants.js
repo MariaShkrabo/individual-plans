@@ -18,6 +18,9 @@ export const ENDPOINTS = {
   login: "/lectors/login",
   register: "/lectors/registration",
   auth: "/lectors/auth",
+  dayWorkload: "individual-plan/day-workload",
+  updateDayWorkload: "individual-plan/update-day-workload",
+  monthWorkload: "individual-plan/month-workload",
   individualPlanCommonInfo: "individual-plan/common-info",
   updateIndividualPlanCommonInfo: "individual-plan/update-common-info",
   educationalAndMethodicalWork:
@@ -46,6 +49,14 @@ export const ENDPOINTS = {
     "/individual-plan/educational-work/scheduled-hours",
   totalEducationalWorkScheduledHours:
     "/individual-plan/educational-work/total-scheduled-hours",
+  totalEducationalAndMethodicalWorksHours:
+    "/individual-plan/educational-and-methodical-work/total-hours",
+  totalOrganizationalAndMethodicalWorksHours:
+    "/individual-plan/organizational-and-methodical-work/total-hours",
+  totalInformationAndEducationalWorksHours:
+    "/individual-plan/information_and_educational_work/total-hours",
+  totalScientificAndResearchWorksHours:
+    "/individual-plan/scientific_and_research_work/stages/total-hours",
 };
 
 export const LOCAL_STORAGE_KEYS = {
@@ -156,5 +167,68 @@ export const WORK_TYPES = [
     id: "14",
     name: "total_hours",
     placeholder: "Всего",
+  },
+];
+
+export const WORKLOADS_MONTHS = [
+  {
+    number: 1,
+    name: "Январь",
+    caseName: "Января",
+    daysQuantity: 31,
+  },
+  {
+    number: 2,
+    name: "Февраль",
+    caseName: "Февраля",
+    daysQuantity: 29,
+  },
+  {
+    number: 3,
+    name: "Март",
+    caseName: "Марта",
+    daysQuantity: 31,
+  },
+  {
+    number: 4,
+    name: "Апрель",
+    caseName: "Апреля",
+    daysQuantity: 30,
+  },
+  {
+    number: 5,
+    name: "Май",
+    caseName: "Мая",
+    daysQuantity: 31,
+  },
+  {
+    number: 6,
+    name: "Июнь",
+    caseName: "Июня",
+    daysQuantity: 30,
+  },
+  {
+    number: 9,
+    name: "Сентябрь",
+    caseName: "Сентября",
+    daysQuantity: 30,
+  },
+  {
+    number: 10,
+    name: "Октябрь",
+    caseName: "Октября",
+    daysQuantity: 31,
+  },
+  {
+    number: 11,
+    name: "Ноябрь",
+    caseName: "Ноября",
+    daysQuantity: 30,
+  },
+  {
+    number: 12,
+    name: "Декабрь",
+    caseName: "Декабря",
+    daysQuantity: 31,
   },
 ];

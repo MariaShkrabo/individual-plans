@@ -2,6 +2,25 @@ const sequelize = require("../db");
 const ApiError = require("../error/ApiError");
 
 class OrganizationalAndMethodicalWorksController {
+  async getTotalOrganizationalAndMethodicalWorksHours(req, res) {
+    let { individualPlanId } = req.query;
+
+    const query = `
+      SELECT SUM(o.hours_number) as "organizational_and_methodical_works_hours"
+      FROM public.organizational_and_methodical_works o
+      WHERE "individualPlanId"=${individualPlanId}
+    `;
+
+    await sequelize
+      .query(query)
+      .then((result) => {
+        return res.status(200).json(result[0][0]);
+      })
+      .catch((error) => {
+        res.status(404).json(error);
+      });
+  }
+
   async getOrganizationalAndMethodicalWorksInfo(req, res) {
     let { id } = req.query;
 

@@ -1,25 +1,22 @@
 import { useFieldArray, useForm } from "react-hook-form";
-import classes from "./../educational-work.module.scss";
 import CustomButton from "../../../../shared/components/Button/Button";
 import { buttonThemes, colors } from "../../../../shared/enums";
-import { useCallback, useEffect } from "react";
+import classes from "./workload-form.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { getMe } from "../../../../redux/Selectors";
+import DayWorkload from "../DayWorkload/DayWorkload";
+import { useCallback, useEffect } from "react";
 import request from "../../../../shared/api/request";
 import {
-  GET_EDUCATIONAL_WORK,
-  UPDATE_EDUCATIONAL_WORK,
+  GET_DAY_WORKLOAD,
+  UPDATE_DAY_WORKLOAD,
 } from "../../../../shared/api/requests";
-import EducationalWorksDiscipline from "./EducationalWorksDiscipline/EducationalWorksDiscipline";
-import { showSuccess } from "../../../../redux/Actions";
 import { setFields } from "../../../../shared/functions/setFields";
+import { showSuccess } from "../../../../redux/Actions";
 
-const EducationalWorksDisciplines = ({
-  name,
-  title,
-  setIsDisciplinesShown,
-  semester,
-}) => {
+const WorkloadForm = ({ month, day }) => {
+  const name = "workload";
+
   const {
     handleSubmit,
     control,
@@ -39,12 +36,9 @@ const EducationalWorksDisciplines = ({
 
   const addField = () => {
     append({
+      month: month.number,
+      day: day,
       discipline: "",
-      facultyId: null,
-      specialtyId: null,
-      groups: [],
-      students_quantity: null,
-      educational_streams: null,
       lectures: null,
       seminars: null,
       labs: null,
@@ -58,61 +52,47 @@ const EducationalWorksDisciplines = ({
       practice: null,
       undergraduates_guidance: null,
       test_works: null,
-      total_hours: null,
-      actually_done_hours_number: null,
-      note: "",
-      semester: semester,
-      individualPlanId: me.id
+      individualPlanId: me.id,
     });
   };
-
-  const initForm = useCallback(async () => {
-    if (me) {
-      const data = await request(GET_EDUCATIONAL_WORK(me.id, semester));
-      setValue(name, [...data]);
-    }
-  }, [me, name, semester, setValue]);
-
-  useEffect(() => {
-    initForm();
-  }, [initForm]);
 
   const save = async (formData) => {
     const data = { ...formData };
 
     await request(
-      UPDATE_EDUCATIONAL_WORK(me.id, semester, setFields(data, null))
+      UPDATE_DAY_WORKLOAD(me.id, month.number, day, setFields(data, null))
     );
     dispatch(showSuccess("Изменения сохранены!"));
   };
 
+  const initForm = useCallback(async () => {
+    if (me) {
+      const data = await request(GET_DAY_WORKLOAD(me.id, month.number, day));
+      setValue(name, [...data]);
+    }
+  }, [day, me, month.number, setValue]);
+
+  useEffect(() => {
+    initForm();
+  }, [initForm]);
+
   return (
-    <form onSubmit={handleSubmit(save)}>
-      <button
-        className={classes["educational-work__button_back"]}
-        onClick={() => setIsDisciplinesShown(false)}
-      >
-        ← Назад
-      </button>
-      <h1 className={classes["educational-work__title"]}>{title}</h1>
-      <ul className={classes["educational-work__list"]}>
+    <form onSubmit={handleSubmit(save)} className={classes["workload-form"]}>
+      <ul className={classes["workload-form__list"]}>
         {fields.map((item, index) => {
           return (
-            <EducationalWorksDiscipline
+            <DayWorkload
               key={item.id}
-              name={name}
               control={control}
-              index={index}
               remove={remove}
-              watch={watch}
-              setValue={setValue}
+              index={index}
+              name={name}
             />
           );
         })}
       </ul>
-
       <CustomButton
-        className={classes["educational-work__button_add"]}
+        className={classes["workload-form__button_add"]}
         color={colors.success}
         theme={buttonThemes.form}
         type="button"
@@ -127,4 +107,4 @@ const EducationalWorksDisciplines = ({
   );
 };
 
-export default EducationalWorksDisciplines;
+export default WorkloadForm;

@@ -182,6 +182,28 @@ const GroupsForDiscipline = sequelize.define("groups_for_discipline", {
   // educational_works_id
 });
 
+const Workloads = sequelize.define("workloads", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  month: { type: DataTypes.INTEGER, allowNull: false },
+  day: { type: DataTypes.INTEGER, allowNull: false },
+  discipline: { type: DataTypes.STRING, allowNull: false },
+
+  lectures: { type: DataTypes.DOUBLE },
+  seminars: { type: DataTypes.DOUBLE },
+  labs: { type: DataTypes.DOUBLE },
+  course_design: { type: DataTypes.DOUBLE },
+  consultations: { type: DataTypes.DOUBLE },
+  credit_tests: { type: DataTypes.DOUBLE },
+  exams: { type: DataTypes.DOUBLE },
+  graduate_students_guidance: { type: DataTypes.DOUBLE },
+  diploma_design: { type: DataTypes.DOUBLE },
+  sec: { type: DataTypes.DOUBLE },
+  practice: { type: DataTypes.DOUBLE },
+  undergraduates_guidance: { type: DataTypes.DOUBLE },
+  test_works: { type: DataTypes.DOUBLE },
+  // individual_plan_id
+});
+
 Lectors.hasOne(IndividualPlans);
 IndividualPlans.belongsTo(Lectors);
 
@@ -225,6 +247,11 @@ IndividualPlans.hasMany(ScientificAndResearchWorkStages, {
 });
 ScientificAndResearchWorkStages.belongsTo(IndividualPlans);
 
+IndividualPlans.hasMany(Workloads, {
+  foreignKey: "individualPlanId",
+});
+Workloads.belongsTo(IndividualPlans);
+
 //Educational work
 IndividualPlans.hasMany(EducationalWorks, {
   foreignKey: "individualPlanId",
@@ -259,12 +286,5 @@ module.exports = {
   ScientificAndResearchStudentsWorks,
   GroupsForDiscipline,
   EducationalWorks,
+  Workloads,
 };
-
-// const Workloads = sequelize.define("workloads", {
-//   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//   date: { type: DataTypes.DATE, allowNull: false },
-//   // individual_plan_id
-//   // work_type_id
-//   // discipline_id
-// });

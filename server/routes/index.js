@@ -13,6 +13,7 @@ const scientificAndResearchWorkRouter = require("./scientificAndResearchWorkRout
 const specialtiesRouter = require("./specialtiesRouter");
 const groupsRouter = require("./groupsRouter");
 const educationalWorkRouter = require("./educationalWorkRouter");
+const workloadRouter = require("./workloadRouter");
 
 router.use("/faculties", facultiesRouter);
 router.use("/cathedras", cathedrasRouter);
@@ -25,5 +26,6 @@ router.use("/individual-plan", scientificAndResearchWorkRouter);
 router.use("/specialties", specialtiesRouter);
 router.use("/groups", groupsRouter);
 router.use("/individual-plan", educationalWorkRouter);
+router.use("/individual-plan", workloadRouter);
 
 module.exports = router;

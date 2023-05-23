@@ -14,6 +14,11 @@ router.get(
 );
 
 router.get(
+  "/scientific_and_research_work/stages/total-hours",
+  scientificAndResearchWorkController.getTotalScientificAndResearchWorksHours
+);
+
+router.get(
   "/scientific_and_research_work/students",
   scientificAndResearchWorkController.getScientificAndResearchStudentsWorks
 );
