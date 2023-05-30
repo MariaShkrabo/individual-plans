@@ -22,11 +22,11 @@ class ScientificAndResearchWorkController {
   }
 
   async getScientificAndResearchWorkThemeName(req, res) {
-    let { id } = req.query;
+    let { individualPlanId } = req.query;
 
     const query = `
       SELECT scientific_and_research_theme_name FROM public.individual_plans
-      WHERE id=${id};
+      WHERE id=${individualPlanId};
     `;
 
     await sequelize
@@ -40,11 +40,11 @@ class ScientificAndResearchWorkController {
   }
 
   async getScientificAndResearchWorkStages(req, res) {
-    let { id } = req.query;
+    let { individualPlanId } = req.query;
 
     const query = `
       SELECT * FROM public.scientific_and_research_work_stages
-      WHERE "individualPlanId"=${id};
+      WHERE "individualPlanId"=${individualPlanId};
     `;
 
     await sequelize
@@ -58,11 +58,11 @@ class ScientificAndResearchWorkController {
   }
 
   async getScientificAndResearchStudentsWorks(req, res) {
-    let { id } = req.query;
+    let { individualPlanId } = req.query;
 
     const query = `
       SELECT * FROM public.scientific_and_research_students_works
-      WHERE "individualPlanId"=${id};
+      WHERE "individualPlanId"=${individualPlanId};
     `;
 
     await sequelize
@@ -104,22 +104,36 @@ class ScientificAndResearchWorkController {
         scientific_and_research_students_works,
       } = req.body;
 
-      const { id } = req.query;
+      const { individualPlanId } = req.query;
+
+      console.log(scientific_and_research_students_works);
 
       const query = `
         UPDATE public.individual_plans
         SET scientific_and_research_theme_name='${scientific_and_research_theme_name}'
-        WHERE id = ${id};
+        WHERE id = ${individualPlanId};
 
         DELETE FROM public.scientific_and_research_work_stages
-        WHERE "individualPlanId"=${id};
+        WHERE "individualPlanId"=${individualPlanId};
         INSERT INTO public.scientific_and_research_work_stages
-        VALUES ${formQueryData(scientific_and_research_work_stages, id)}
+        VALUES ${formQueryData(
+          scientific_and_research_work_stages,
+          individualPlanId
+        )}
 
+        ${
+          scientific_and_research_students_works.length !== 0
+            ? `
         DELETE FROM public.scientific_and_research_students_works
-        WHERE "individualPlanId"=${id};
+        WHERE "individualPlanId"=${individualPlanId};
         INSERT INTO public.scientific_and_research_students_works
-        VALUES ${formQueryData(scientific_and_research_students_works, id)}
+        VALUES ${formQueryData(
+          scientific_and_research_students_works,
+          individualPlanId
+        )}
+        `
+            : ""
+        }  
     `;
 
       await sequelize.query(query).then((result) => {

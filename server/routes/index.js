@@ -1,5 +1,4 @@
 const Router = require("express");
-
 const router = new Router();
 
 const facultiesRouter = require("./facultiesRouter");

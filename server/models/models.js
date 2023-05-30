@@ -9,22 +9,18 @@ const IndividualPlans = sequelize.define("individual_plans", {
   educational_and_methodical_works_hours: {
     type: DataTypes.DOUBLE,
     defaultValue: 0,
-    allowNull: false,
   },
   organizational_and_methodical_works_hours: {
     type: DataTypes.DOUBLE,
     defaultValue: 0,
-    allowNull: false,
   },
   scientific_and_research_works_hours: {
     type: DataTypes.DOUBLE,
     defaultValue: 0,
-    allowNull: false,
   },
   information_and_educational_works_hours: {
     type: DataTypes.DOUBLE,
     defaultValue: 0,
-    allowNull: false,
   },
   total_hours: { type: DataTypes.DOUBLE, defaultValue: 0, allowNull: false },
   protocol_number: { type: DataTypes.INTEGER },
@@ -124,10 +120,10 @@ const ScientificAndResearchStudentsWorks = sequelize.define(
   "scientific_and_research_students_works",
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    name: { type: DataTypes.STRING, allowNull: false },
-    hours_number: { type: DataTypes.DOUBLE, allowNull: false },
-    date_start: { type: DataTypes.DATE, allowNull: false },
-    date_end: { type: DataTypes.DATE, allowNull: false },
+    name: { type: DataTypes.STRING },
+    hours_number: { type: DataTypes.DOUBLE },
+    date_start: { type: DataTypes.DATE },
+    date_end: { type: DataTypes.DATE },
     reporting_form: { type: DataTypes.STRING },
     head_of_department_mark: { type: DataTypes.STRING },
     note: { type: DataTypes.STRING },
@@ -201,8 +197,12 @@ const Workloads = sequelize.define("workloads", {
   practice: { type: DataTypes.DOUBLE },
   undergraduates_guidance: { type: DataTypes.DOUBLE },
   test_works: { type: DataTypes.DOUBLE },
-  // individual_plan_id
 });
+
+IndividualPlans.hasMany(Workloads, {
+  foreignKey: "individualPlanId",
+});
+Workloads.belongsTo(IndividualPlans);
 
 Lectors.hasOne(IndividualPlans);
 IndividualPlans.belongsTo(Lectors);
@@ -247,10 +247,7 @@ IndividualPlans.hasMany(ScientificAndResearchWorkStages, {
 });
 ScientificAndResearchWorkStages.belongsTo(IndividualPlans);
 
-IndividualPlans.hasMany(Workloads, {
-  foreignKey: "individualPlanId",
-});
-Workloads.belongsTo(IndividualPlans);
+
 
 //Educational work
 IndividualPlans.hasMany(EducationalWorks, {

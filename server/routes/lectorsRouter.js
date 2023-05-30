@@ -8,3 +8,4 @@ router.post('/login', lectorsController.login);
 router.get('/auth', authMiddleware, lectorsController.check);
 
 module.exports = router;
+

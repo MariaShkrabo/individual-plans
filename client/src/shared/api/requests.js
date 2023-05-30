@@ -75,17 +75,17 @@ export const UPDATE_INFORMATION_AND_EDUCATIONAL_DATA = (
 
 export const GET_SCIENTIFIC_THEME = (individualPlanId) => ({
   method: "get",
-  url: `${ENDPOINTS.scientificAndResearchWorkThemeName}?id=${individualPlanId}`,
+  url: `${ENDPOINTS.scientificAndResearchWorkThemeName}?individualPlanId=${individualPlanId}`,
 });
 
 export const GET_SCIENTIFIC_WORK_STAGES = (individualPlanId) => ({
   method: "get",
-  url: `${ENDPOINTS.scientificAndResearchWorkStages}?id=${individualPlanId}`,
+  url: `${ENDPOINTS.scientificAndResearchWorkStages}?individualPlanId=${individualPlanId}`,
 });
 
 export const GET_STUDENTS_SCIENTIFIC_WORK = (individualPlanId) => ({
   method: "get",
-  url: `${ENDPOINTS.scientificAndResearchWorkStudents}?id=${individualPlanId}`,
+  url: `${ENDPOINTS.scientificAndResearchWorkStudents}?individualPlanId=${individualPlanId}`,
 });
 
 export const UPDATE_SCIENTIFIC_AND_RESEARCH_WORK_DATA = (
@@ -93,7 +93,7 @@ export const UPDATE_SCIENTIFIC_AND_RESEARCH_WORK_DATA = (
   data
 ) => ({
   method: "put",
-  url: `${ENDPOINTS.updateScientificAndResearchWork}?id=${individualPlanId}`,
+  url: `${ENDPOINTS.updateScientificAndResearchWork}?individualPlanId=${individualPlanId}`,
   data,
 });
 

@@ -32,7 +32,9 @@ const CommonInfoForm = () => {
     watch,
     setValue,
     reset,
-  } = useForm({ mode: "onTouched" });
+  } = useForm({
+    mode: "onTouched",
+  });
 
   const save = async (formData) => {
     const data = { ...formData };
@@ -195,8 +197,7 @@ const CommonInfoForm = () => {
             control={control}
             type="number"
             changingValue={0}
-            error={errors?.educational_works_hours}
-            rules={hoursValidation}
+            disabled={true}
           />
         </div>
         <div className={classes["common-info-form__control_work-type"]}>
@@ -206,8 +207,7 @@ const CommonInfoForm = () => {
             control={control}
             type="number"
             changingValue={0}
-            error={errors?.educational_and_methodical_works_hours}
-            rules={hoursValidation}
+            disabled={true}
           />
         </div>
         <div className={classes["common-info-form__control_work-type"]}>
@@ -217,8 +217,7 @@ const CommonInfoForm = () => {
             control={control}
             type="number"
             changingValue={0}
-            error={errors?.organizational_and_methodical_works_hours}
-            rules={hoursValidation}
+            disabled={true}
           />
         </div>
         <div className={classes["common-info-form__control_work-type"]}>
@@ -228,8 +227,7 @@ const CommonInfoForm = () => {
             control={control}
             type="number"
             changingValue={0}
-            error={errors?.scientific_and_research_works_hours}
-            rules={hoursValidation}
+            disabled={true}
           />
         </div>
         <div className={classes["common-info-form__control_work-type"]}>
@@ -239,8 +237,7 @@ const CommonInfoForm = () => {
             control={control}
             type="number"
             changingValue={0}
-            error={errors?.information_and_educational_works_hours}
-            rules={hoursValidation}
+            disabled={true}
           />
         </div>
         <div className={classes["common-info-form__control_work-type-total"]}>

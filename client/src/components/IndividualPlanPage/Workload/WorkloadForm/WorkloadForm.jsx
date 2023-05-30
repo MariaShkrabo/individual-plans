@@ -87,6 +87,7 @@ const WorkloadForm = ({ month, day }) => {
               remove={remove}
               index={index}
               name={name}
+              errors={errors}
             />
           );
         })}

@@ -2,9 +2,10 @@ import CustomButton from "../../../../shared/components/Button/Button";
 import Input from "../../../../shared/components/Input/Input";
 import { WORK_TYPES } from "../../../../shared/constants";
 import { buttonThemes, colors } from "../../../../shared/enums";
+import { disciplineValidation } from "../ValidationRules";
 import classes from "./day-workload.module.scss";
 
-const DayWorkload = ({ control, remove, index, name }) => {
+const DayWorkload = ({ control, remove, index, name, errors }) => {
   return (
     <li className={classes["day-workload"]}>
       <div className={classes["day-workload__control"]}>
@@ -12,6 +13,8 @@ const DayWorkload = ({ control, remove, index, name }) => {
           name={`${name}.${index}.discipline`}
           placeholder="Наименование учебной дисциплины"
           control={control}
+          error={errors?.name?.[index].discipline}
+          rules={disciplineValidation}
         />
       </div>
       <p className={classes["day-workload__text"]}>Число часов</p>

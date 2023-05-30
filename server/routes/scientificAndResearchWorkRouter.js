@@ -1,5 +1,4 @@
 const Router = require("express");
-
 const router = new Router();
 const scientificAndResearchWorkController = require("../controllers/scientificAndResearchWork");
 

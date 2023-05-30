@@ -172,6 +172,30 @@ export const WORK_TYPES = [
 
 export const WORKLOADS_MONTHS = [
   {
+    number: 9,
+    name: "Сентябрь",
+    caseName: "Сентября",
+    daysQuantity: 30,
+  },
+  {
+    number: 10,
+    name: "Октябрь",
+    caseName: "Октября",
+    daysQuantity: 31,
+  },
+  {
+    number: 11,
+    name: "Ноябрь",
+    caseName: "Ноября",
+    daysQuantity: 30,
+  },
+  {
+    number: 12,
+    name: "Декабрь",
+    caseName: "Декабря",
+    daysQuantity: 31,
+  },
+  {
     number: 1,
     name: "Январь",
     caseName: "Января",
@@ -206,29 +230,5 @@ export const WORKLOADS_MONTHS = [
     name: "Июнь",
     caseName: "Июня",
     daysQuantity: 30,
-  },
-  {
-    number: 9,
-    name: "Сентябрь",
-    caseName: "Сентября",
-    daysQuantity: 30,
-  },
-  {
-    number: 10,
-    name: "Октябрь",
-    caseName: "Октября",
-    daysQuantity: 31,
-  },
-  {
-    number: 11,
-    name: "Ноябрь",
-    caseName: "Ноября",
-    daysQuantity: 30,
-  },
-  {
-    number: 12,
-    name: "Декабрь",
-    caseName: "Декабря",
-    daysQuantity: 31,
   },
 ];

@@ -35,19 +35,18 @@ export const useGenerateDocument = () => {
         GET_INDIVIDUAL_PLAN_COMMON_DATA(me.id)
       );
 
-      const updated_employment_date = formatDate(
-        individualPlanData.employment_date,
-        "d MMMM yyyy"
-      );
-      const updated_year_start = formatDate(
-        individualPlanData.year_start,
-        "yyyy"
-      );
-      const updated_year_end = formatDate(individualPlanData.year_end, "yyyy");
-      const updated_plan_approval_date = formatDate(
-        individualPlanData.plan_approval_date,
-        "d MMMM yyyy"
-      );
+      const updated_employment_date = individualPlanData.employment_date
+        ? formatDate(individualPlanData.employment_date, "d MMMM yyyy")
+        : null;
+      const updated_year_start = individualPlanData.year_start
+        ? formatDate(individualPlanData.year_start, "yyyy")
+        : null;
+      const updated_year_end = individualPlanData.year_end
+        ? formatDate(individualPlanData.year_end, "yyyy")
+        : null;
+      const updated_plan_approval_date = individualPlanData.plan_approval_date
+        ? formatDate(individualPlanData.plan_approval_date, "d MMMM yyyy")
+        : null;
 
       const head_of_department = `${individualPlanData.head_surname} ${individualPlanData.head_name[0]}.${individualPlanData.head_father_name[0]}`;
 

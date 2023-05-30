@@ -68,10 +68,12 @@ const ScientificAndResearchWorks = () => {
 
   const save = async (formData) => {
     const data = { ...formData };
-    await request(
-      UPDATE_SCIENTIFIC_AND_RESEARCH_WORK_DATA(me.id, setFields(data, null))
-    );
-    dispatch(showSuccess("Изменения сохранены!"));
+    if (me) {
+      await request(
+        UPDATE_SCIENTIFIC_AND_RESEARCH_WORK_DATA(me.id, setFields(data, null))
+      );
+      dispatch(showSuccess("Изменения сохранены!"));
+    }
   };
 
   return (
