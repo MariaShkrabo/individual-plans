@@ -57,6 +57,11 @@ export const ENDPOINTS = {
     "/individual-plan/information_and_educational_work/total-hours",
   totalScientificAndResearchWorksHours:
     "/individual-plan/scientific_and_research_work/stages/total-hours",
+  updateIndPlanEdHours: "/individual-plan/update-ed-hours",
+  updateIndPlanEdMethHours: "/individual-plan/update-ed-meth-hours",
+  updateIndPlanOrgMethHours: "/individual-plan/update-org-meth-hours",
+  updateIndPlanScResHours: "/individual-plan/update-sc-res-hours",
+  updateIndPlanInfEdHours: "/individual-plan/update-inf-ed-hours",
 };
 
 export const LOCAL_STORAGE_KEYS = {

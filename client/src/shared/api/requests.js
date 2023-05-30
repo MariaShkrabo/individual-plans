@@ -166,3 +166,28 @@ export const GET_MONTH_WORKLOAD = (individualPlanId, month) => ({
   method: "get",
   url: `${ENDPOINTS.monthWorkload}?individualPlanId=${individualPlanId}&month=${month}`,
 });
+
+export const UPDATE_IND_PLAN_ED_HOURS = (individualPlanId) => ({
+  method: "patch",
+  url: `${ENDPOINTS.updateIndPlanEdHours}?individualPlanId=${individualPlanId}`,
+});
+
+export const UPDATE_IND_PLAN_ED_METH_HOURS = (individualPlanId) => ({
+  method: "patch",
+  url: `${ENDPOINTS.updateIndPlanEdMethHours}?individualPlanId=${individualPlanId}`,
+});
+
+export const UPDATE_IND_PLAN_ORG_METH_HOURS = (individualPlanId) => ({
+  method: "patch",
+  url: `${ENDPOINTS.updateIndPlanOrgMethHours}?individualPlanId=${individualPlanId}`,
+});
+
+export const UPDATE_IND_PLAN_SC_RES_HOURS = (individualPlanId) => ({
+  method: "patch",
+  url: `${ENDPOINTS.updateIndPlanScResHours}?individualPlanId=${individualPlanId}`,
+});
+
+export const UPDATE_IND_PLAN_INF_ED_HOURS = (individualPlanId) => ({
+  method: "patch",
+  url: `${ENDPOINTS.updateIndPlanInfEdHours}?individualPlanId=${individualPlanId}`,
+});

@@ -10,6 +10,7 @@ import { useCallback, useEffect } from "react";
 import request from "../../../shared/api/request";
 import {
   GET_ORGANIZATIONAL_AND_METHODICAL_DATA,
+  UPDATE_IND_PLAN_ORG_METH_HOURS,
   UPDATE_ORGANIZATIONAL_AND_METHODICAL_DATA,
 } from "../../../shared/api/requests";
 import { setFields } from "../../../shared/functions/setFields";
@@ -65,6 +66,7 @@ const OrganizationalAndMethodicalWorks = () => {
     await request(
       UPDATE_ORGANIZATIONAL_AND_METHODICAL_DATA(me.id, setFields(data, null))
     );
+    await request(UPDATE_IND_PLAN_ORG_METH_HOURS(me.id));
     dispatch(showSuccess("Изменения сохранены!"));
   };
 

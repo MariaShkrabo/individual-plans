@@ -9,6 +9,7 @@ import request from "../../../../shared/api/request";
 import {
   GET_EDUCATIONAL_WORK,
   UPDATE_EDUCATIONAL_WORK,
+  UPDATE_IND_PLAN_ED_HOURS,
 } from "../../../../shared/api/requests";
 import EducationalWorksDiscipline from "./EducationalWorksDiscipline/EducationalWorksDiscipline";
 import { showSuccess } from "../../../../redux/Actions";
@@ -83,6 +84,7 @@ const EducationalWorksDisciplines = ({
     await request(
       UPDATE_EDUCATIONAL_WORK(me.id, semester, setFields(data, null))
     );
+    await request(UPDATE_IND_PLAN_ED_HOURS(me.id));
     dispatch(showSuccess("Изменения сохранены!"));
   };
 

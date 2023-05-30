@@ -10,6 +10,7 @@ import { useCallback, useEffect } from "react";
 import request from "../../../shared/api/request";
 import {
   GET_INFORMATION_AND_EDUCATIONAL_DATA,
+  UPDATE_IND_PLAN_INF_ED_HOURS,
   UPDATE_INFORMATION_AND_EDUCATIONAL_DATA,
 } from "../../../shared/api/requests";
 import { setFields } from "../../../shared/functions/setFields";
@@ -65,6 +66,7 @@ const InformationAndEducationalWorks = () => {
     await request(
       UPDATE_INFORMATION_AND_EDUCATIONAL_DATA(me.id, setFields(data, null))
     );
+    await request(UPDATE_IND_PLAN_INF_ED_HOURS(me.id));
     dispatch(showSuccess("Изменения сохранены!"));
   };
 

@@ -11,6 +11,7 @@ import request from "../../../shared/api/request";
 import {
   GET_EDUCATIONAL_AND_METHODICAL_DATA,
   UPDATE_EDUCATIONAL_AND_METHODICAL_DATA,
+  UPDATE_IND_PLAN_ED_METH_HOURS,
 } from "../../../shared/api/requests";
 import { setFields } from "../../../shared/functions/setFields";
 import { showSuccess } from "../../../redux/Actions";
@@ -62,10 +63,11 @@ const EducationalAndMethodicalWorks = () => {
 
   const save = async (formData) => {
     const data = { ...formData };
-    console.log(data)
+    console.log(data);
     await request(
       UPDATE_EDUCATIONAL_AND_METHODICAL_DATA(me.id, setFields(data, null))
     );
+    await request(UPDATE_IND_PLAN_ED_METH_HOURS);
     dispatch(showSuccess("Изменения сохранены!"));
   };
 

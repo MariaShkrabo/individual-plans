@@ -15,6 +15,7 @@ import {
   GET_SCIENTIFIC_THEME,
   GET_SCIENTIFIC_WORK_STAGES,
   GET_STUDENTS_SCIENTIFIC_WORK,
+  UPDATE_IND_PLAN_SC_RES_HOURS,
   UPDATE_SCIENTIFIC_AND_RESEARCH_WORK_DATA,
 } from "../../../shared/api/requests";
 import { setFields } from "../../../shared/functions/setFields";
@@ -72,6 +73,7 @@ const ScientificAndResearchWorks = () => {
       await request(
         UPDATE_SCIENTIFIC_AND_RESEARCH_WORK_DATA(me.id, setFields(data, null))
       );
+      await request(UPDATE_IND_PLAN_SC_RES_HOURS(me.id));
       dispatch(showSuccess("Изменения сохранены!"));
     }
   };

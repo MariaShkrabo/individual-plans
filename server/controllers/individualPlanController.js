@@ -75,6 +75,116 @@ class IndividualPlansController {
       next(ApiError.badRequest(e.message));
     }
   }
+
+  async updateEducationalAndMethodicalWorksHours(req, res, next) {
+    try {
+      const { individualPlanId } = req.query;
+
+      const query = `
+        UPDATE individual_plans
+        SET educational_and_methodical_works_hours = (
+            SELECT SUM(e.hours_number)
+              FROM public.educational_and_methodical_works e
+            WHERE "individualPlanId"=${individualPlanId}
+        )
+        WHERE id = ${individualPlanId};
+    `;
+
+      await sequelize.query(query).then((result) => {
+        return res.status(200).json(`Изменения сохранены!`);
+      });
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
+  }
+
+  async updateOrganizationalAndMethodicalWorksHours(req, res, next) {
+    try {
+      const { individualPlanId } = req.query;
+
+      const query = `
+        UPDATE individual_plans
+        SET organizational_and_methodical_works_hours = (
+            SELECT SUM(o.hours_number)
+              FROM public.organizational_and_methodical_works o
+            WHERE "individualPlanId"=${individualPlanId}
+        )
+        WHERE id = ${individualPlanId};
+    `;
+
+      await sequelize.query(query).then((result) => {
+        return res.status(200).json(`Изменения сохранены!`);
+      });
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
+  }
+
+  async updateScientificAndResearchWorksHours(req, res, next) {
+    try {
+      const { individualPlanId } = req.query;
+
+      const query = `
+        UPDATE individual_plans
+        SET scientific_and_research_works_hours = (
+            SELECT SUM(s.hours_number)
+              FROM public.scientific_and_research_work_stages s
+            WHERE "individualPlanId"=${individualPlanId}
+        )
+        WHERE id = ${individualPlanId};
+    `;
+
+      await sequelize.query(query).then((result) => {
+        return res.status(200).json(`Изменения сохранены!`);
+      });
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
+  }
+
+  async updateInformationAndEducationalWorksHours(req, res, next) {
+    try {
+      const { individualPlanId } = req.query;
+
+      const query = `
+        UPDATE individual_plans
+        SET information_and_educational_works_hours = (
+            SELECT SUM(i.hours_number)
+              FROM public.information_and_educational_works i
+            WHERE "individualPlanId"=${individualPlanId}
+        )
+        WHERE id = ${individualPlanId};
+    `;
+
+      await sequelize.query(query).then((result) => {
+        return res.status(200).json(`Изменения сохранены!`);
+      });
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
+  }
+
+  async updateEducationalWorksHours(req, res, next) {
+    try {
+      const { individualPlanId } = req.query;
+
+      const query = `
+        UPDATE individual_plans
+        SET educational_works_hours = (
+            SELECT SUM(e.total_hours)
+              FROM public.educational_works e
+            WHERE "individualPlanId"=${individualPlanId}
+        )
+        WHERE id = ${individualPlanId};
+    `;
+
+      await sequelize.query(query).then((result) => {
+        return res.status(200).json(`Изменения сохранены!`);
+      });
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
+  }
 }
 
 module.exports = new IndividualPlansController();
