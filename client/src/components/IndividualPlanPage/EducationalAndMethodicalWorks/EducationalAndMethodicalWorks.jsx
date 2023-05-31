@@ -67,7 +67,7 @@ const EducationalAndMethodicalWorks = () => {
     await request(
       UPDATE_EDUCATIONAL_AND_METHODICAL_DATA(me.id, setFields(data, null))
     );
-    await request(UPDATE_IND_PLAN_ED_METH_HOURS);
+    await request(UPDATE_IND_PLAN_ED_METH_HOURS(me.id));
     dispatch(showSuccess("Изменения сохранены!"));
   };
 

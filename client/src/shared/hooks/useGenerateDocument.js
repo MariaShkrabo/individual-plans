@@ -50,6 +50,13 @@ export const useGenerateDocument = () => {
 
       const head_of_department = `${individualPlanData.head_surname} ${individualPlanData.head_name[0]}.${individualPlanData.head_father_name[0]}`;
 
+      const calculated_total_hours =
+        +individualPlanData.educational_works_hours +
+        +individualPlanData.educational_and_methodical_works_hours +
+        +individualPlanData.organizational_and_methodical_works_hours +
+        +individualPlanData.information_and_educational_works_hours +
+        +individualPlanData.scientific_and_research_works_hours;
+
       setPlanData(
         Object.assign(
           planData,
@@ -60,6 +67,7 @@ export const useGenerateDocument = () => {
               updated_year_start,
               updated_year_end,
               updated_plan_approval_date,
+              calculated_total_hours,
               ...individualPlanData,
             },
             ""
